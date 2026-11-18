@@ -1,0 +1,48 @@
+[auth]
+enabled = true
+providers = ["email", "google"]
+
+[[config]]
+name = "report_points"
+label = "Points per approved report"
+type = "number"
+default = 10
+integer = true
+min = 0
+
+[[config]]
+name = "max_upload_mb"
+label = "Maximum report photo size (MB)"
+type = "number"
+default = 8
+integer = true
+min = 1
+max = 25
+
+[db.tables.eco_profiles]
+read = "own"
+write = "own"
+
+[db.tables.waste_reports]
+read = "own"
+write = "own"
+
+[db.tables.notifications]
+read = "own"
+write = "own"
+
+[db.tables.point_transactions]
+read = "own"
+write = "own"
+
+[db.tables.redemptions]
+read = "own"
+write = "own"
+
+[db.tables.spin_vouchers]
+read = "own"
+write = "own"
+
+[db.tables.wheel_spins]
+read = "own"
+write = "own"

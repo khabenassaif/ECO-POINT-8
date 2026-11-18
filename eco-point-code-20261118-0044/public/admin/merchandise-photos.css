@@ -1,0 +1,15 @@
+/* Merchandise photo thumbnails: eight individually matched slices of the upscaled sprite. */
+.admin-merch-product{display:flex;align-items:center;gap:15px;min-width:245px}
+.admin-merch-product b{font-size:12px;line-height:1.5;font-weight:900;max-width:260px}
+.admin-merch-table .admin-table td{vertical-align:middle;padding-top:12px;padding-bottom:12px}
+.admin-reward-photo{display:block;flex:none;width:82px!important;height:82px!important;aspect-ratio:1;border:2px solid #153a29;border-radius:12px;box-shadow:3px 3px 0 #153a29;background:#fff;object-fit:contain;overflow:hidden}
+.admin-reward-sprite{background-image:url('/images/eco-prizes.webp?v=28');background-size:800% 100%;background-repeat:no-repeat}
+.admin-reward-fallback{display:grid;place-items:center;background:#e2f4d4;font-size:27px}
+.admin-reward-photo-large{width:150px!important;height:150px!important;max-width:100%}
+@media(max-width:790px){
+ .admin-merch-table{overflow-x:auto}
+ .admin-merch-table .admin-table{min-width:710px}
+ .admin-merch-product{min-width:220px;gap:12px}
+ .admin-reward-photo{width:72px!important;height:72px!important}
+ .admin-reward-photo-large{width:150px!important;height:150px!important}
+}

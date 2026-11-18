@@ -1,0 +1,4 @@
+ALTER TABLE waste_reports ADD COLUMN IF NOT EXISTS description TEXT;
+ALTER TABLE waste_reports ADD COLUMN IF NOT EXISTS notes TEXT;
+ALTER TABLE rewards ADD COLUMN IF NOT EXISTS category TEXT NOT NULL DEFAULT 'merchandise';
+ALTER TABLE rewards ADD COLUMN IF NOT EXISTS pickup_instructions TEXT;

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Eco-Point administrator workspace">
+  <title>Eco-Point Admin</title>
+  <link rel="stylesheet" href="/theme.css">
+  <link rel="stylesheet" href="/premium.css">
+  <link rel="stylesheet" href="/admin/admin.css">
+  <link rel="stylesheet" href="/admin/neo.css?v=17">
+  <link rel="stylesheet" href="/admin/review-ui.css?v=27">
+  <link rel="stylesheet" href="/admin/merchandise-photos.css?v=28">
+  <link rel="stylesheet" href="/campus-brand.css?v=21">
+</head>
+<body>
+<div class="admin-layout">
+  <aside class="admin-side">
+    <a href="/admin/" class="brand admin-brand">
+      <span class="brandmark">
+        <svg class="icon" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15 5 19.3 6.8 21 10.2c-1.2 5.5-5.1 8.8-10 8.8"/><path d="M3 21c3-5 7-8 13-10"/></svg>
+      </span>
+      <span>Eco-Point<small>Administrator</small></span>
+    </a>
+    <div class="green-campus-admin-lockup"><img src="/images/green-campus-logo.svg" alt="Green Campus" width="170" height="69"></div>
+    <div class="admin-role"><span class="admin-role-dot"></span><div><b>Panel Administrator</b><small>Verifikasi & keputusan</small></div></div>
+    <nav class="admin-nav">
+      <button data-tab="overview" class="active">Ringkasan</button>
+      <button data-tab="reports" class="admin-nav-reports">🗂️ Verifikasi Laporan <span class="admin-pending-nav-badge" id="adminPendingBadge" hidden>0</span></button>
+      <button data-tab="categories">Kategori Sampah</button>
+      <button data-tab="locations">Lokasi Tempat Sampah</button>
+      <button data-tab="rewards">Kelola Hadiah</button>
+      <button data-tab="redemptions">Status Penukaran</button>
+      <button data-tab="students">Data Member</button>
+      <button data-tab="transactions">Transaksi Poin</button>
+      <button data-tab="analytics">Analitik</button>
+      <button data-tab="settings">Pengaturan</button>
+    </nav>
+    <div class="admin-side-bottom"><a href="/">Lihat website publik ↗</a><span>Eco-Point Admin · v2</span></div>
+  </aside>
+  <div class="admin-workspace">
+    <header class="admin-topbar">
+      <div><span class="admin-breadcrumb">Eco-Point / <b id="adminCrumb">Overview</b></span></div>
+      <div class="admin-top-actions"><div class="admin-notice-wrap"><button type="button" class="admin-bell-button" id="adminBellToggle" aria-label="Notifikasi laporan admin" aria-controls="adminNoticePanel">🔔 <span id="adminBellBadge" class="admin-bell-badge" hidden>0</span></button><div class="admin-notice-panel" id="adminNoticePanel" hidden><div class="admin-notice-heading"><strong>Notifikasi laporan</strong><span>Menunggu verifikasi</span></div><div id="adminNoticeList"><p class="admin-notice-empty">Memuat laporan…</p></div><button type="button" class="admin-notice-open" onclick="document.querySelector('#adminNoticePanel').hidden=true;document.querySelector('.admin-nav button[data-tab=reports]').click()">Buka semua laporan →</button></div></div><a href="/" class="btn ghost">Kembali ke website</a><button type="button" id="adminLogout" class="btn ghost">Keluar Admin</button><span class="admin-avatar">AD</span></div>
+    </header>
+    <main class="admin-main"><div id="adminRoot"><div class="admin-skeleton"><span></span><span></span><span></span></div></div></main>
+  </div>
+</div>
+<div id="adminToast" class="toast" role="status"></div>
+<script src="/admin/admin.js?v=28" defer></script>
+</body>
+</html>

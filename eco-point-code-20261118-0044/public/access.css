@@ -1,0 +1,37 @@
+/* Eco-Point two-role entry point */
+[hidden]{display:none!important}
+.login-card{width:min(560px,100%);padding:29px 30px 33px}
+.login-card>.brand{margin-bottom:19px;display:inline-flex}
+.login-role-intro{margin-bottom:16px}
+.login-role-kicker{display:inline-block;padding:6px 10px;background:#e2f7a5;border:2px solid #153a29;border-radius:7px;font-size:10px;letter-spacing:.08em;font-weight:900;transform:rotate(-1deg);box-shadow:3px 3px 0 #153a29}
+.login-role-intro h2{font-size:clamp(25px,3vw,35px);line-height:1.1;letter-spacing:-.055em;margin:17px 0 8px;color:#153a29}
+.login-role-intro p{font-size:12px;line-height:1.7;color:#55705d;margin:0}
+.login-role-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin:18px 0 22px}
+.login-role-option{font:inherit;display:grid;gap:6px;justify-items:start;align-content:center;min-height:135px;padding:17px;border:2.5px solid #153a29;border-radius:13px;background:#fff;text-align:left;color:#153a29;cursor:pointer;transition:transform .18s,box-shadow .18s,background .18s}
+.login-role-option:first-child{background:#e9f7df}.login-role-option:nth-child(2){background:#f8eefc}
+.login-role-option.active{box-shadow:5px 5px 0 #153a29;transform:translate(-2px,-2px);background:#d7f47d}
+.login-role-option:hover{transform:translate(-2px,-2px)}
+.login-role-option:focus-visible{outline:3px solid #399557;outline-offset:4px}
+.login-role-symbol{display:grid;place-items:center;width:39px;height:39px;background:#fff;border:2px solid #153a29;border-radius:10px;font-size:20px}
+.login-role-option strong{font-weight:900;font-size:14px;line-height:1.2}
+.login-role-option small{font-size:11px;line-height:1.55;color:#4d6754}
+#memberLogin h1,#adminLogin h1{font-size:clamp(25px,2.6vw,34px);line-height:1.14;letter-spacing:-.055em;margin:12px 0 9px}
+#memberLogin>p,#adminLogin>p{font-size:12px;line-height:1.75;color:#536a5c}
+#adminLogin{padding-top:7px}
+.login-admin-chip{display:inline-block;font-size:10px;font-weight:900;letter-spacing:.05em;background:#e8dcfa;color:#513b70;border:2px solid #513b70;padding:6px 9px;border-radius:8px}
+.login-admin-checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:19px 0 21px}
+.login-admin-checks span{display:flex;align-items:center;background:#e9f7e0;border:1.5px solid #9ec8a3;border-radius:9px;font-size:11px;font-weight:800;padding:11px 10px}
+.login-admin-cta{display:flex;justify-content:center;align-items:center;text-decoration:none;width:100%}
+.login-admin-disclaimer{margin-top:17px!important;background:#fff9d8;padding:13px;border-left:4px solid #d8b34e;border-radius:6px}
+.login-admin-error{padding:12px;background:#ffedef;border:2px solid #be5359;border-radius:8px;color:#8f3440!important}
+.login-panel{padding:36px clamp(18px,3.4vw,48px)}
+.login-card #emailForm .field,.login-card #codeForm .field{margin-top:14px}
+@media(max-width:750px){.login-role-grid{gap:10px}.login-role-option{padding:13px;min-height:128px}.login-role-option strong{font-size:13px}.login-role-option small{font-size:10px}.login-card{padding:25px 21px 28px}.login-panel{padding:20px 14px}}
+@media(max-width:370px){.login-role-grid{grid-template-columns:1fr}.login-role-option{min-height:90px}.login-admin-checks{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.login-role-option{transition:none!important}}
+.login-fast-label{display:inline-flex;padding:7px 10px;margin:14px 0 13px;background:#d9f56d;border:2px solid #153a29;border-radius:8px;font-size:10px;font-weight:900;letter-spacing:.05em}
+#memberLogin .google-btn{width:100%;margin:0 0 13px;min-height:50px;border:2px solid #153a29;border-radius:10px;background:#fff;box-shadow:4px 4px 0 #153a29;font-weight:800}
+#memberLogin .google-btn:hover:not(:disabled){transform:translate(-2px,-2px)}
+#memberLogin .google-btn:disabled{opacity:.65;box-shadow:none;cursor:not-allowed}
+#passkeyMember{font-weight:900;font-size:13px}
+#memberLogin .login-divider{margin-top:14px}

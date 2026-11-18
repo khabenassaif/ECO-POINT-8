@@ -1,0 +1,111 @@
+/* Eco-Point Admin — friendly review workflow; all decisions remain server-authorized. */
+.admin-queue-count{display:inline-flex;align-items:center;padding:10px 14px;background:#d4f36a;border:2px solid #153a29;border-radius:10px;box-shadow:3px 3px 0 #153a29;font-size:12px;font-weight:900;color:#153a29}
+.admin-review-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-bottom:23px}
+.admin-review-summary>div{background:#fff;border:2px solid #153a29;border-radius:14px;box-shadow:4px 4px 0 #153a29;padding:20px 20px 17px;display:grid;gap:3px}
+.admin-review-summary>div:nth-child(1){background:#fff3b6}
+.admin-review-summary>div:nth-child(2){background:#ddf4d7}
+.admin-review-summary>div:nth-child(3){background:#ffe4dc}
+.admin-review-summary small{font-size:12px;color:#4f6b54;font-weight:800}
+.admin-review-summary strong{font-size:36px;color:#153a29;line-height:1.2;font-weight:900;letter-spacing:-.055em}
+.admin-review-summary span{font-size:11px;color:#526b59}
+.admin-page-head .eyebrow{color:#286b42;font-weight:900}
+.verification-toolbar{display:grid;gap:8px;background:#f6faf2;border-bottom:2px solid #153a29;padding:16px}
+.verification-toolbar label{font-size:12px;color:#36533c;font-weight:900}
+.verification-toolbar select{border:2px solid #153a29!important;border-radius:10px!important;padding:12px!important;font-weight:750;font-size:12px}
+.verification-layout{grid-template-columns:minmax(270px,.85fr) minmax(380px,1.15fr);gap:18px;align-items:start}
+.verification-list,.verification-detail{border:2px solid #153a29!important;border-radius:15px!important;box-shadow:5px 5px 0 #153a29!important}
+.verification-detail{min-height:450px}
+.queue-item{width:100%;font-family:inherit;display:grid;grid-template-columns:52px minmax(0,1fr) auto;text-align:left;background:#fff;border:0;border-bottom:1px solid #d3e0d0;padding:13px;gap:12px;align-items:center;cursor:pointer;min-width:0}
+.queue-item b{font-size:12px;color:#173e2b}
+.queue-item .meta{font-size:10px;line-height:1.5}
+.queue-item img{width:52px;height:52px;border:2px solid #153a29;border-radius:10px;object-fit:cover}
+.queue-item.active{background:#e0f5d5;box-shadow:inset 5px 0 0 #153a29}
+.queue-item:hover{background:#effadf}
+.queue-item:focus-visible{outline:3px solid #34966a;outline-offset:-4px}
+.queue-item .pill{font-size:10px;white-space:nowrap}
+.verification-empty{min-height:440px}
+.verification-body{padding:22px}
+.verification-body .verification-photo{max-height:350px;object-fit:contain;width:100%;background:#f0f5ed;border:2px solid #c8daca;border-radius:12px}
+.verification-meta{gap:10px}
+.meta-box{background:#eff7e9;border:1.5px solid #c2d7c4;border-radius:9px;padding:11px}
+.meta-box b{display:block;margin-bottom:5px;font-size:10px;color:#4d6c54}
+.meta-box span{font-size:12px;overflow-wrap:anywhere}
+.verification-body h3{font-weight:900;color:#153a29}
+.review-actions{border:2px solid #153a29;border-radius:13px;background:#fff6cc;padding:18px;margin-top:22px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.review-actions label{grid-column:1/-1;display:grid;gap:4px}
+.review-actions label strong{font-size:12px;color:#153a29}
+.review-actions label small{font-size:11px;line-height:1.5;color:#566b56}
+.review-actions textarea{grid-column:1/-1;width:100%;min-height:90px;resize:vertical;padding:13px;background:#fff;border:2px solid #6f9479;border-radius:10px;font:inherit;font-size:12px;line-height:1.6}
+.review-actions textarea:focus-visible{outline:3px solid #51a56d;outline-offset:2px}
+.review-actions .btn{width:100%;min-height:45px;font-size:12px}
+.review-actions .btn.ghost{background:#ffe2dd;border:2px solid #8a4444;color:#773c3c;box-shadow:3px 3px 0 #8a4444}
+.review-actions .btn.primary{background:#d4f36a;border:2px solid #153a29;color:#153a29}
+.admin-access-alert{margin:min(8vh,50px) auto;max-width:640px;background:#fff;border:3px solid #153a29;border-radius:18px;box-shadow:8px 8px 0 #153a29;padding:32px}
+.admin-access-alert>span{display:inline-block;font-size:11px;letter-spacing:.06em;font-weight:900;background:#fff0bd;border:2px solid #153a29;border-radius:8px;padding:7px 10px}
+.admin-access-alert h1{font-size:clamp(28px,4vw,42px);line-height:1.1;letter-spacing:-.05em;margin:18px 0 12px}
+.admin-access-alert p{font-size:14px;line-height:1.7;color:#4b6754}
+.admin-access-links{display:flex;flex-wrap:wrap;gap:16px;margin:22px 0}
+.admin-access-links .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 15px;text-decoration:none}
+.admin-access-alert small{color:#53715c;line-height:1.6;display:block}
+@media(max-width:1050px){.verification-layout{grid-template-columns:1fr}.verification-list .queue{max-height:290px;overflow-y:auto}.verification-body{padding:18px}}
+@media(max-width:620px){.admin-review-summary{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.admin-review-summary>div{padding:12px}.admin-review-summary strong{font-size:28px}.admin-review-summary small,.admin-review-summary span{font-size:9px}.review-actions{grid-template-columns:1fr;padding:12px}.review-actions textarea,.review-actions label{grid-column:auto}.admin-access-alert{padding:20px}.queue-item{grid-template-columns:45px minmax(0,1fr) auto;gap:8px}.queue-item img{width:45px;height:45px}.queue-item .pill{font-size:9px}}
+.admin-otp-card{max-width:610px}
+.admin-otp-card #sendAdminOtp{margin:10px 0 20px;min-height:48px;padding:11px 18px}
+.admin-otp-card #sendAdminOtp:disabled{opacity:.6;cursor:wait}
+#verifyAdminOtp{display:grid;gap:12px;margin:4px 0 15px;padding:21px;border:2px solid #153a29;border-radius:13px;background:#e9f5dd}
+#verifyAdminOtp[hidden]{display:none!important}
+#verifyAdminOtp label{font-size:12px;font-weight:900;color:#153a29}
+#verifyAdminOtp input{width:100%;max-width:300px;padding:13px 16px;background:#fff;border:2px solid #153a29;border-radius:10px;letter-spacing:.38em;font-size:25px;font-family:inherit;font-weight:900}
+#verifyAdminOtp button{max-width:350px;min-height:45px}
+.admin-otp-status{min-height:22px;font-size:13px;font-weight:750;color:#246b47!important}
+@media(max-width:620px){.admin-otp-card{padding:22px!important}#verifyAdminOtp{padding:15px}}
+.admin-award-summary{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:16px 0;padding:14px;background:#e3f7d8;border:2px solid #153a29;border-radius:11px}
+.admin-award-summary strong{font-size:12px;color:#153a29}
+.admin-award-summary span{font-size:18px;color:#1b7042;font-weight:900;white-space:nowrap}
+/* Always show the admin verification input, even before an email is requested. */
+.admin-otp-card #verifyAdminOtp{display:grid!important;visibility:visible!important;opacity:1!important;gap:12px;margin:16px 0 18px;background:#e9f7dc;border:3px solid #153a29;border-radius:14px;padding:22px;box-shadow:4px 4px 0 #153a29}
+.admin-otp-card #verifyAdminOtp label{font-size:14px;font-weight:900;color:#153a29}
+.admin-otp-card #adminOtpCode{display:block!important;width:100%;max-width:330px;min-height:55px;font-size:27px;font-weight:900;letter-spacing:.36em;text-align:center;border:2px solid #153a29;border-radius:11px;background:#fff;color:#153a29}
+.admin-otp-card #adminOtpCode:focus-visible{outline:3px solid #82bf39;outline-offset:3px}
+.admin-otp-card #confirmAdminOtp{font-weight:900;width:100%;max-width:330px;min-height:48px}
+.admin-otp-card #confirmAdminOtp:disabled{opacity:.55;cursor:not-allowed}
+.admin-otp-instruction{font-size:12px!important;background:#fff7dc;padding:10px 12px;border-radius:8px;border-left:4px solid #d5ac46}
+#adminOtpHelp{display:block;font-size:11px;line-height:1.6;color:#526955}
+@media(max-width:600px){.admin-otp-card #verifyAdminOtp{padding:15px}.admin-otp-card #adminOtpCode{font-size:22px;letter-spacing:.28em}}
+.admin-simple-login{max-width:570px}
+.admin-simple-login form{display:grid;gap:11px;margin:24px 0 16px;padding:23px;border:2px solid #153a29;border-radius:14px;background:#eaf7e2;box-shadow:4px 4px 0 #153a29}
+.admin-simple-login label{font-size:12px;font-weight:900;color:#153a29}
+.admin-simple-login input{display:block;width:100%;min-width:0;min-height:46px;border:2px solid #153a29;border-radius:10px;background:white;padding:12px;font:inherit;font-size:14px;color:#153a29}
+.admin-simple-login input:focus-visible{outline:3px solid #8aba52;outline-offset:2px}
+.admin-password-row{display:flex;align-items:stretch;gap:8px;min-width:0}
+.admin-password-row input{flex:1;min-width:0}
+.admin-password-row button{flex:none;border:2px solid #153a29;border-radius:9px;background:#fff;color:#153a29;padding:0 13px;font-weight:800;cursor:pointer}
+.admin-simple-login #adminCodeSubmit{min-height:49px;font-weight:900;margin-top:5px}
+.admin-simple-login #adminCodeSubmit:disabled{opacity:.6}
+@media(max-width:600px){.admin-simple-login form{padding:15px}}
+.review-save-status{grid-column:1/-1;font-size:12px;line-height:1.5;color:#345e43;margin:0}.review-actions .btn:disabled{opacity:.65;cursor:wait;box-shadow:none}
+/* Review inbox and admin notifications */
+.admin-nav-reports{display:flex!important;align-items:center;justify-content:space-between;gap:8px}
+.admin-pending-nav-badge{display:inline-flex;align-items:center;justify-content:center;background:#ffdf75;color:#143a2c;border:2px solid #153a29;border-radius:99px;min-width:25px;min-height:25px;padding:2px 6px;font-size:11px;font-weight:900;line-height:1}
+.admin-pending-nav-badge[hidden],.admin-bell-badge[hidden],.admin-notice-panel[hidden]{display:none!important}
+.admin-notice-wrap{position:relative;z-index:50;flex:none}
+.admin-bell-button{position:relative;display:grid;place-items:center;width:43px;height:43px;background:#d4f36a;border:2px solid #153a29;border-radius:11px;box-shadow:3px 3px 0 #153a29;cursor:pointer;font-size:20px}
+.admin-bell-button:hover{transform:translate(-1px,-1px);box-shadow:4px 4px 0 #153a29}
+.admin-bell-badge{position:absolute;top:-10px;right:-9px;min-width:21px;height:21px;border-radius:11px;background:#f15b66;color:#fff;border:2px solid #153a29;font-size:10px;line-height:17px;font-weight:900;text-align:center;padding:0 3px}
+.admin-notice-panel{position:absolute;right:0;top:calc(100% + 14px);width:min(350px,calc(100vw - 24px));max-height:65vh;overflow:auto;background:#fff;border:3px solid #153a29;border-radius:14px;box-shadow:7px 7px 0 #153a29;padding:12px;z-index:100}
+.admin-notice-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 8px 11px;border-bottom:1px solid #cddcca}
+.admin-notice-heading strong{font-size:15px;font-weight:900}
+.admin-notice-heading span{font-size:10px;color:#59745c}
+.admin-notice-item{display:grid;text-align:left;gap:5px;width:100%;background:#fff;border:0;border-bottom:1px solid #e0eade;padding:13px 8px;cursor:pointer;font:inherit}
+.admin-notice-item:hover{background:#effbdd}
+.admin-notice-item b{font-size:12px;color:#143a2c}
+.admin-notice-item span{font-size:11px;color:#52705b}
+.admin-notice-empty{font-size:12px;color:#4e7158;padding:14px}
+.admin-notice-open{width:100%;padding:11px;border:2px solid #153a29;border-radius:9px;background:#d4f36a;color:#153a29;font-weight:900;cursor:pointer;margin-top:9px}
+.admin-pending-alert{display:flex;justify-content:space-between;align-items:center;gap:20px;background:#fff2b9;border:2px solid #153a29;border-radius:14px;padding:19px 21px;box-shadow:5px 5px 0 #153a29;margin:0 0 24px}
+.admin-pending-alert div{display:grid;gap:6px}
+.admin-pending-alert strong{font-size:18px;font-weight:900}
+.admin-pending-alert span{font-size:12px;line-height:1.5;color:#5d6443}
+.admin-pending-alert .btn{flex:none;min-height:42px;display:inline-flex;align-items:center}
+.admin-ready-alert{padding:16px 19px;border:2px solid #a8caaf;border-radius:12px;background:#e6f8e3;font-weight:800;margin-bottom:24px;color:#2b6840}
+@media(max-width:770px){.admin-pending-alert{display:grid;gap:12px}.admin-pending-alert .btn{justify-self:start}.admin-notice-panel{right:-28px}.admin-top-actions>a{display:none}}

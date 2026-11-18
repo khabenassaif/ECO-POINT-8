@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 620" role="img" aria-label="Ilustrasi mahasiswa dan ekosistem daur ulang">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#DDF3E6"/><stop offset="1" stop-color="#F8F8F2"/></linearGradient>
+    <linearGradient id="shirt" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#176B4D"/><stop offset="1" stop-color="#65B889"/></linearGradient>
+  </defs>
+  <rect width="720" height="620" rx="52" fill="url(#bg)"/>
+  <circle cx="610" cy="100" r="52" fill="#fff" opacity=".72"/>
+  <path d="M70 490c90-58 169-45 252 15 91 65 205 69 326-2v117H70z" fill="#CBE9D7"/>
+  <path d="M102 436c25-80 89-135 169-143 86-9 145 24 199 98 27 37 80 54 145 30" fill="none" stroke="#65B889" stroke-width="18" stroke-linecap="round" opacity=".45"/>
+  <g transform="translate(385 115)">
+    <ellipse cx="42" cy="73" rx="55" ry="64" fill="#E8B591"/>
+    <path d="M-8 66c4-55 30-80 69-75 36 5 51 36 48 73-16-19-35-31-58-34-17 17-37 29-59 36z" fill="#25352D"/>
+    <path d="M-33 167c28-49 118-56 157 0l24 171H-49z" fill="url(#shirt)"/>
+    <path d="M-8 199c-67 11-94 76-114 137l46 14c26-60 45-91 88-96z" fill="#E8B591"/>
+    <path d="M109 201c54 13 85 49 111 100l-42 22c-24-41-45-62-79-68z" fill="#E8B591"/>
+    <rect x="-15" y="273" width="124" height="87" rx="14" fill="#fff" opacity=".95"/>
+    <path d="M25 300h45m-45 18h58m-58 18h38" stroke="#176B4D" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(95 315)">
+    <rect x="0" y="0" width="150" height="178" rx="28" fill="#fff"/>
+    <rect x="14" y="18" width="122" height="34" rx="17" fill="#176B4D"/>
+    <path d="M48 84h54v54H48z" fill="#DDF3E6"/>
+    <path d="M75 72c19 0 35 16 35 35s-16 35-35 35-35-16-35-35 16-35 35-35z" fill="none" stroke="#176B4D" stroke-width="8" stroke-dasharray="32 14"/>
+    <path d="M73 60l12 18-20 1z" fill="#176B4D"/>
+  </g>
+  <g fill="#176B4D">
+    <path d="M176 199c-22-42 13-76 52-64-10 41-25 64-52 64z"/>
+    <path d="M225 173c21-37 56-31 72-5-30 26-52 28-72 5z" opacity=".7"/>
+    <path d="M590 257c-18-36 7-69 40-62-5 34-16 56-40 62z" opacity=".78"/>
+  </g>
+  <g transform="translate(550 330)">
+    <rect x="0" y="0" width="90" height="128" rx="20" fill="#104C38"/>
+    <rect x="13" y="-13" width="64" height="22" rx="11" fill="#65B889"/>
+    <path d="M28 45c8-10 16-15 25-15 9 0 17 5 25 15-7 10-15 15-25 15s-18-5-25-15zm8 37h34" fill="none" stroke="#DDF3E6" stroke-width="7" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(245 470)">
+    <circle cx="0" cy="0" r="12" fill="#E8A33B"/><circle cx="35" cy="22" r="9" fill="#5B8DEF"/><circle cx="72" cy="-5" r="11" fill="#65B889"/>
+  </g>
+</svg>

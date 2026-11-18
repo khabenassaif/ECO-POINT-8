@@ -1,0 +1,5 @@
+INSERT INTO waste_categories (name,description,points,is_active) VALUES ('Plastic','Botol plastik dan material plastik yang sesuai untuk pemilahan.',10,true) ON CONFLICT (name) DO NOTHING;
+INSERT INTO waste_categories (name,description,points,is_active) VALUES ('Paper','Kertas dan material berbasis kertas yang dapat dipisahkan.',10,true) ON CONFLICT (name) DO NOTHING;
+INSERT INTO waste_categories (name,description,points,is_active) VALUES ('Organic','Sampah organik yang dapat dikelola terpisah dari material anorganik.',10,true) ON CONFLICT (name) DO NOTHING;
+INSERT INTO waste_categories (name,description,points,is_active) VALUES ('Metal','Kaleng dan material logam yang dapat dipilah untuk pengelolaan lanjutan.',10,true) ON CONFLICT (name) DO NOTHING;
+INSERT INTO waste_categories (name,description,points,is_active) VALUES ('Other','Material lain yang tidak termasuk kategori utama dan tetap memerlukan pemilahan.',10,true) ON CONFLICT (name) DO NOTHING;
