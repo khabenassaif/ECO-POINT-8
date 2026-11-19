@@ -1,4 +1,4 @@
-import { db, storage } from "hatchable";
+import { db, storage } from "../../../render-server/sdk.js";
 
 export const access="public";
 export const methods=["GET"];

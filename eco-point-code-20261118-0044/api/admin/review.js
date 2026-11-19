@@ -1,5 +1,5 @@
-import { db } from "hatchable";
-import { requireEcoAdmin } from "lib/admin-access.js";
+import { db } from "../../../render-server/sdk.js";
+import { requireEcoAdmin } from "../../lib/admin-access.js";
 
 export const access="public";
 export const methods=["POST"];
