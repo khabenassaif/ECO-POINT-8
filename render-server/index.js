@@ -14,12 +14,14 @@ const root=join(dirname(fileURLToPath(import.meta.url)),'..','eco-point-code-202
 const publicRoot=join(root,'public');
 const port=Number(process.env.PORT||10000);
 const secure=process.env.NODE_ENV==='production';
+const onVercel=process.env.VERCEL==='1';
+const configured=Boolean(process.env.DATABASE_URL && process.env.SESSION_SECRET && process.env.SESSION_SECRET.length>=32 && process.env.ADMIN_ACCESS_CODE);
 const digest=s=>crypto.createHmac('sha256',process.env.SESSION_SECRET).update(String(s)).digest('hex');
 const safeEqual=(a,b)=>{ const x=Buffer.from(String(a)),y=Buffer.from(String(b));return x.length===y.length && crypto.timingSafeEqual(x,y); };
 const makeToken=()=>crypto.randomBytes(32).toString('hex');
 const cleanEmail=s=>String(s||'').trim().toLowerCase().slice(0,254);
 const maxUpload=Math.min(25,Math.max(1,Number(process.env.MAX_UPLOAD_MB||8)))*1024*1024;
-if(!process.env.DATABASE_URL || !process.env.SESSION_SECRET || process.env.SESSION_SECRET.length<32)
+if(!onVercel && (!process.env.DATABASE_URL || !process.env.SESSION_SECRET || process.env.SESSION_SECRET.length<32))
   throw new Error('DATABASE_URL dan SESSION_SECRET (minimal 32 karakter) wajib diisi');
 
 app.set('trust proxy',1);
@@ -28,6 +30,9 @@ app.use(helmet({contentSecurityPolicy:false,crossOriginEmbedderPolicy:false}));
 app.use(express.json({limit:'1mb'}));
 app.use(express.urlencoded({extended:false,limit:'1mb'}));
 app.use(cookieParser());
+// Preview may display the public site before Neon and authentication are configured.
+// No mock balances, reports or login sessions are created.
+if(onVercel && !configured) app.use('/api',(req,res)=>res.status(503).json({error:'ECO-POINT masih mode pratinjau: database Neon dan autentikasi belum terhubung.'}));
 const multipart=multer({storage:multer.memoryStorage(),limits:{fileSize:maxUpload,files:1,fields:20}});
 app.use((req,res,next)=>{
   if(['POST','PUT','PATCH','DELETE'].includes(req.method) && req.path.startsWith('/api/')){
@@ -161,5 +166,8 @@ app.use((error,req,res,next)=>{
   if(error instanceof multer.MulterError)return res.status(413).json({error:'Berkas terlalu besar atau jumlah berkas melebihi batas.'});
   res.status(error?.status===503?503:500).json({error:error?.status===503?error.message:'Terjadi kesalahan server. Silakan coba lagi.'});
 });
-await initializeDatabase();
-app.listen(port,'0.0.0.0',()=>console.log('Eco-Point listening on '+port));
+if(!onVercel) {
+  await initializeDatabase();
+  app.listen(port,'0.0.0.0',()=>console.log('Eco-Point listening on '+port));
+}
+export default app;

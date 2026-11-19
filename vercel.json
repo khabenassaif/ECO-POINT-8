@@ -1,0 +1,16 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "functions": {
+    "app.js": {
+      "includeFiles": "eco-point-code-20261118-0044/public/**",
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "/app.js"
+    }
+  ]
+}

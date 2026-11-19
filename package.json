@@ -1,5 +1,5 @@
 {
-  "name": "eco-point-8-render",
+  "name": "eco-point-8-vercel-preview",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node render-server/index.js",
-    "check": "node --check render-server/index.js"
+    "check": "node --check app.js && node --check render-server/index.js",
+    "db:migrate": "node render-server/migrate.mjs"
   },
   "dependencies": {
     "express": "^4.21.2",

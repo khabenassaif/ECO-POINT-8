@@ -1,4 +1,4 @@
-/* Eco-Point same-origin authentication bridge for Render.
+/* Eco-Point same-origin authentication bridge for Vercel/Neon.
    Keeps the original UI while removing its dependency on Hatchable.
    Only verified email-code login is supported on this deployment. */
 (function(){
@@ -16,8 +16,8 @@
     startLogin:({email})=>request('/api/auth/login/start','POST',{email}),
     verifyCode:({email,code})=>request('/api/auth/login/verify','POST',{email,code}),
     signOut:()=>request('/api/auth/logout','POST',{}),
-    signInWithPasskey:async()=>{throw new Error('Passkey belum tersedia pada hosting Render. Gunakan kode verifikasi email.');},
-    registerPasskey:async()=>{throw new Error('Pendaftaran passkey belum tersedia pada hosting Render.');}
+    signInWithPasskey:async()=>{throw new Error('Passkey belum tersedia pada hosting Vercel/Neon. Gunakan kode verifikasi email.');},
+    registerPasskey:async()=>{throw new Error('Pendaftaran passkey belum tersedia pada hosting Vercel/Neon.');}
   };
   window.hatchable={auth};
 })();
