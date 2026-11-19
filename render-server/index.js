@@ -53,11 +53,29 @@ app.use(async(req,res,next)=>{
   }
   next();
 });
-const mailer=()=>{
-  if(!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASSWORD || !process.env.EMAIL_FROM)
-    throw new Error('SMTP belum dikonfigurasi oleh pemilik proyek.');
-  return nodemailer.createTransport({host:process.env.SMTP_HOST,port:Number(process.env.SMTP_PORT||587),secure:Number(process.env.SMTP_PORT||587)===465,auth:{user:process.env.SMTP_USER,pass:process.env.SMTP_PASSWORD}});
-};
+async function sendLoginCode(email,code) {
+  if(!process.env.EMAIL_FROM) throw Object.assign(new Error('Pengiriman email belum dikonfigurasi.'),{status:503});
+  const message={from:process.env.EMAIL_FROM,to:email,subject:'Kode masuk Eco-Point',
+    text:'Kode verifikasi Eco-Point: '+code+'\nBerlaku selama 10 menit. Jangan berikan kode ini kepada orang lain.'};
+  if(process.env.RESEND_API_KEY){
+    const response=await fetch('https://api.resend.com/emails',{
+      method:'POST',
+      headers:{'Authorization':'Bearer '+process.env.RESEND_API_KEY,'Content-Type':'application/json'},
+      body:JSON.stringify({...message,to:[email]}),
+      signal:AbortSignal.timeout(15000)
+    });
+    if(!response.ok) throw Object.assign(new Error('Layanan email menolak permintaan. Periksa pengirim di Render.'),{status:503});
+    return;
+  }
+  if(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASSWORD){
+    const transport=nodemailer.createTransport({host:process.env.SMTP_HOST,port:Number(process.env.SMTP_PORT||587),
+      secure:Number(process.env.SMTP_PORT||587)===465,
+      auth:{user:process.env.SMTP_USER,pass:process.env.SMTP_PASSWORD}});
+    await transport.sendMail(message);
+    return;
+  }
+  throw Object.assign(new Error('Email belum disiapkan. Setel RESEND_API_KEY dan EMAIL_FROM di Render.'),{status:503});
+}
 app.get('/api/auth/session',(req,res)=>res.json({user:req.user||null}));
 app.get('/api/auth/providers',(req,res)=>res.json({providers:['email']}));
 app.post('/api/auth/login/start',async(req,res,next)=>{
@@ -69,7 +87,7 @@ app.post('/api/auth/login/start',async(req,res,next)=>{
       return res.status(429).json({error:'Tunggu 60 detik sebelum meminta kode baru.'});
     const code=String(crypto.randomInt(100000,1000000));
     // Send first: never publish a valid code when email delivery fails.
-    await mailer().sendMail({from:process.env.EMAIL_FROM,to:email,subject:'Kode masuk Eco-Point',text:'Kode verifikasi Eco-Point: '+code+'\nBerlaku selama 10 menit. Jangan berikan kode ini kepada orang lain.'});
+    await sendLoginCode(email,code);
     await db.query("INSERT INTO eco_member_login_codes (email,digest,attempts,created_at,expires_at) VALUES ($1,$2,0,NOW(),NOW()+INTERVAL '10 minutes') ON CONFLICT(email) DO UPDATE SET digest=EXCLUDED.digest,attempts=0,created_at=NOW(),expires_at=EXCLUDED.expires_at",[email,digest(email+':'+code)]);
     res.json({ok:true,has_passkey:false});
   }catch(e){next(e);}
@@ -141,7 +159,7 @@ app.use((error,req,res,next)=>{
   console.error('Eco-Point API error:',error?.message||error);
   if(res.headersSent)return next(error);
   if(error instanceof multer.MulterError)return res.status(413).json({error:'Berkas terlalu besar atau jumlah berkas melebihi batas.'});
-  res.status(500).json({error:'Terjadi kesalahan server. Silakan coba lagi.'});
+  res.status(error?.status===503?503:500).json({error:error?.status===503?error.message:'Terjadi kesalahan server. Silakan coba lagi.'});
 });
 await initializeDatabase();
 app.listen(port,'0.0.0.0',()=>console.log('Eco-Point listening on '+port));
