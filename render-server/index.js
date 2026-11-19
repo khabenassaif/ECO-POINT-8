@@ -78,7 +78,6 @@ app.post('/api/auth/login/verify',async(req,res,next)=>{
   try{
     const email=cleanEmail(req.body?.email),code=String(req.body?.code||'');
     if(!/^\d{6}$/.test(code))return res.status(400).json({error:'Kode harus 6 digit.'});
-    const client=await db.poolConnect?.();
     const row=(await db.query('SELECT digest,attempts,expires_at FROM eco_member_login_codes WHERE email=$1',[email])).rows[0];
     if(!row || row.attempts>=5 || new Date(row.expires_at).getTime()<Date.now() || !safeEqual(row.digest,digest(email+':'+code))){
       await db.query('UPDATE eco_member_login_codes SET attempts=attempts+1 WHERE email=$1',[email]);

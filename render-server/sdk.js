@@ -15,6 +15,10 @@ export const db = {
     const client = await pool.connect();
     try {
       await client.query('BEGIN');
+      const userId = statements.find(s=>/INSERT\s+INTO\s+redemptions\b/i.test(s.sql))?.params?.[1]
+        || statements.find(s=>/UPDATE\s+eco_profiles\b/i.test(s.sql))?.params?.[0]
+        || statements.find(s=>/UPDATE\s+spin_vouchers\b/i.test(s.sql))?.params?.[1];
+      if(userId) await client.query('SELECT pg_advisory_xact_lock(hashtext($1))',[String(userId)]);
       const results = [];
       for (const item of statements) {
         const result = await client.query(item.sql, item.params || []);

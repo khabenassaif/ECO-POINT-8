@@ -3,7 +3,7 @@ services:
     name: eco-point-8
     runtime: node
     plan: starter
-    buildCommand: npm ci
+    buildCommand: npm install --omit=dev
     startCommand: npm start
     healthCheckPath: /healthz
     envVars:
@@ -31,6 +31,6 @@ services:
         value: "8"
 databases:
   - name: eco-point-8-db
-    plan: basic-256mb
+    plan: 0.1c-256mb
     databaseName: eco_point
     user: eco_point
