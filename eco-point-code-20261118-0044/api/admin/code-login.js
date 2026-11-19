@@ -1,5 +1,5 @@
-import { db } from "hatchable";
-import { adminSession, getAdminCookie, sha256, hex } from "lib/admin-access.js";
+import { db } from "../../../render-server/sdk.js";
+import { adminSession, getAdminCookie, sha256, hex } from "../../lib/admin-access.js";
 export const access="public";
 export const methods=["GET","POST","DELETE"];
 const encoder=new TextEncoder();

@@ -1,5 +1,5 @@
-import { db, storage } from "hatchable";
-import { requireEcoAdmin } from "lib/admin-access.js";
+import { db, storage } from "../../../render-server/sdk.js";
+import { requireEcoAdmin } from "../../lib/admin-access.js";
 import crypto from "node:crypto";
 
 export const access="public";

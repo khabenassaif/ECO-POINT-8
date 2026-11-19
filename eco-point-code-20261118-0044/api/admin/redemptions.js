@@ -1,5 +1,5 @@
-import { db } from "hatchable";
-import { requireEcoAdmin } from "lib/admin-access.js";
+import { db } from "../../../render-server/sdk.js";
+import { requireEcoAdmin } from "../../lib/admin-access.js";
 
 export const access="public";
 export const methods=["GET","PUT"];
@@ -17,7 +17,7 @@ export default async function(req,res){
   if(!(allowed[row.status]||[]).includes(next)) return res.status(409).json({error:"Perubahan status tidak diizinkan."});
   const wheel=(await db.query("SELECT id FROM wheel_spins WHERE redemption_id=$1",[id])).rows[0];
   const statements=[
-    {sql:"UPDATE redemptions SET status=$2,updated_at=NOW() WHERE id=$1",params:[id,next]}
+    {sql:"UPDATE redemptions SET status=$2,updated_at=NOW() WHERE id=$1 AND status=$3",params:[id,next,row.status]}
   ];
   if(next==="cancelled"){
     statements.push({sql:"UPDATE rewards SET stock=stock+1,updated_at=NOW() WHERE id=$1",params:[row.reward_id]});
