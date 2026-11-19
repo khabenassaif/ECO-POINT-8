@@ -18,6 +18,25 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: eco
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: ecopoint_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U eco -d ecopoint_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://eco:testpassword@127.0.0.1:5432/ecopoint_test
+      SESSION_SECRET: ci-only-random-session-secret-12345678901234567890
+      ADMIN_ACCESS_CODE: CiOnlySecretCode123!
+      PORT: "10000"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -49,3 +68,21 @@ jobs:
           }
           console.log('All server modules loaded');
           EOF
+      - name: Integration smoke test against PostgreSQL
+        run: |
+          node render-server/index.js > /tmp/ecopoint-render.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          healthy=0
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:10000/healthz >/dev/null; then
+              healthy=1
+              break
+            fi
+            sleep 1
+          done
+          if [ "$healthy" -ne 1 ]; then
+            cat /tmp/ecopoint-render.log
+            exit 1
+          fi
+          node render-server/smoke.test.mjs
