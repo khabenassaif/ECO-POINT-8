@@ -3,10 +3,13 @@ import crypto from 'node:crypto';
 import { Buffer } from 'node:buffer';
 
 const { Pool } = pg;
+const dbHost = process.env.DATABASE_URL ? new URL(process.env.DATABASE_URL).hostname : '';
+const localDb = ['localhost', '127.0.0.1', '::1', '[::1]'].includes(dbHost);
+const useSsl = process.env.PGSSLMODE === 'disable' ? false : process.env.PGSSLMODE === 'require' ? true : !localDb;
 export const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   max: 12,
-  ssl: process.env.DATABASE_URL?.includes('localhost') ? false : { rejectUnauthorized: false }
+  ssl: useSsl ? { rejectUnauthorized: false } : false
 });
 const query = (sql, params=[]) => pool.query(sql, params);
 export const db = {
