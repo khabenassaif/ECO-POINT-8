@@ -1,6 +1,6 @@
-import { db } from "hatchable";
+import { db } from "../../../render-server/sdk.js";
 import crypto from "node:crypto";
-import { requireAllowedUser } from "lib/user-access.js";
+import { requireAllowedUser } from "../../lib/user-access.js";
 
 export const access="user";
 export const methods=["GET","POST"];
