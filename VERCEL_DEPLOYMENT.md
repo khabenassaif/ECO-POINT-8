@@ -1,22 +1,38 @@
-# Eco-Point Vercel / Neon preview
+# ECO-POINT-8 — Vercel / Neon (Preview)
 
-Status: **PREVIEW ONLY**. No real records or point balances are migrated. The old Hatchable website is untouched.
+**Status:** frontend preview deployed; backend not yet connected to Neon. This is **not** a production-ready app. No student accounts, point balances, or reports have been migrated from Hatchable.
 
-Git branch: `migration/vercel-neon`. This branch is based on the PostgreSQL adapter from `migration/render-postgres`.
+- Project: `eco-point-8-preview`
+- Source branch: `migration/vercel-neon`
+- Target: Vercel Preview; do not promote to Production until smoke tests pass.
 
-## What can run now
+## Provisioning
 
-Vercel Express Functions can serve the existing HTML/CSS/JS site and its bundled assets. When Neon and credentials are not configured, all `/api/*` endpoints deliberately return HTTP 503. This makes the public UI accessible without inventing rewards, users, reports or point balances.
+1. In Vercel project **Storage**, install **Neon Postgres** from Marketplace and select **Free** where available. Connect it to the project **Preview** environment. Provider onboarding, account consent, and any billing confirmation must be completed by the owner; never enable a paid plan without explicit approval.
+2. Verify that Vercel Environment Variables includes `DATABASE_URL` for **Preview**. This connection variable is private; never add it to GitHub or paste it in public chats.
+3. Add the following environment variables as **encrypted** Preview values, directly in Vercel: `SESSION_SECRET` (random, at least 32 characters), `ADMIN_ACCESS_CODE` (private, at least 12 characters), and `EMAIL_FROM` with **either** `RESEND_API_KEY` **or** the SMTP settings (`SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASSWORD`). A verified sender is required for real OTP delivery.
+4. Set `MAX_UPLOAD_MB` optionally (default 8). Never publish credentials or store secrets in repo files.
 
-## To enable features later
+## Initialize the database (one time, manually)
 
-1. Connect the repository to a Vercel **Hobby** project. Deploy this branch as a *Preview*, not production.
-2. Provision **Neon Free** PostgreSQL in Vercel's Storage Marketplace. Never paste the database URL into GitHub.
-3. Set **DATABASE_URL**, **SESSION_SECRET** (32+ chars), **ADMIN_ACCESS_CODE** (strong, private), **EMAIL_FROM**, and **RESEND_API_KEY** as protected Vercel environment variables.
-4. **Before enabling the API**, explicitly run the database bootstrap SQL for this branch with a trusted job/secure SQL session. Vercel Functions intentionally do not run migrations at import or on each request.
-5. Validate live public catalog, email login, admin login, report photo uploads, report approval and point ledger, redemption and stock limits, and responsive layout. Reconcile data exported privately from Hatchable before inviting real students.
-6. Only after acceptance decide whether to merge to production.
+The Vercel API does **not** run SQL migrations at startup, by design. Before enabling students to use the application, open a trusted local shell/CI runner with private Preview database credentials and run:
 
-The previous Render-only scripts continue to exist for local integration testing. The no-database preview must never be used for real reports.
+```sh
+npm install
+ECO_POINT_DB_MIGRATE=YES npm run db:migrate
+```
 
-For larger usage, use external object storage instead of storing student photos in PostgreSQL bytea. Monitor Vercel Hobby limits; Hobby usage is intended for personal/noncommercial work.
+The command requires `DATABASE_URL`, `SESSION_SECRET`, and `ADMIN_ACCESS_CODE` already present in its **process environment**. Do not use the sample values from `.env.example`. The migration runner will not start unless `ECO_POINT_DB_MIGRATE=YES` is explicitly set; it records completed SQL files in `eco_schema_migrations`. Review migration SQL and back up any existing schema/data before applying.
+
+After migration and environment configuration, create a **new Preview deployment** (old deployments will not automatically use newly connected environment variables).
+
+## Validation checklist
+
+- `GET /login` should return HTTP 200 and serve the real login page.
+- `GET /healthz` should return `{"ok":true,...}`; HTTP 503 means DB is missing/unreachable.
+- `GET /api/public/catalog` should return the database catalog, not fake/sample records.
+- Test a genuine login email with the configured sender, login logout, admin code login and logout.
+- Test report submission with an image, admin approval/rejection, exactly-once point credit, redemption stock and vouchers.
+- Audit all access controls and rate limits. Existing Hatchable reports and balances are **not** synchronized; plan a separate private import/reconciliation before student use.
+
+Current Vercel/Neon version supports email OTP only. **Google sign-in and passkeys have not been migrated.** Vercel Hobby and Neon Free have resource limits; monitor them and do not opt into paid usage without the account owner's approval. Avoid storing large photos as PostgreSQL `bytea` for sustained usage.
