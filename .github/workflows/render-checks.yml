@@ -1,0 +1,88 @@
+name: Render migration checks
+
+on:
+  push:
+    branches: ["migration/render-postgres"]
+  pull_request:
+    paths:
+      - "render-server/**"
+      - "render.yaml"
+      - "package.json"
+      - "eco-point-code-20261118-0044/**"
+      - ".github/workflows/render-checks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: eco
+          POSTGRES_PASSWORD: testpassword
+          POSTGRES_DB: ecopoint_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U eco -d ecopoint_test"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 10
+    env:
+      DATABASE_URL: postgresql://eco:testpassword@127.0.0.1:5432/ecopoint_test
+      SESSION_SECRET: ci-only-random-session-secret-12345678901234567890
+      ADMIN_ACCESS_CODE: CiOnlySecretCode123!
+      PORT: "10000"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Use Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install application dependencies
+        run: npm install --omit=dev --ignore-scripts
+      - name: Syntax check
+        run: |
+          npm run check
+          find render-server eco-point-code-20261118-0044/api eco-point-code-20261118-0044/lib -name '*.js' -print0 | xargs -0 -n1 node --check
+          node --check eco-point-code-20261118-0044/public/app.js
+          node --check eco-point-code-20261118-0044/public/admin/admin.js
+          node --check eco-point-code-20261118-0044/public/auth-bridge.js
+      - name: Verify all server imports resolve
+        run: |
+          node --input-type=module <<'EOF'
+          import {readdir} from 'node:fs/promises';
+          import {resolve} from 'node:path';
+          import {pathToFileURL} from 'node:url';
+          for (const dir of ['api/admin','api/public','api/student','lib']) {
+            const root='eco-point-code-20261118-0044/'+dir;
+            for (const name of await readdir(root)) {
+              if (!name.endsWith('.js')) continue;
+              await import(pathToFileURL(resolve(root,name)).href);
+            }
+          }
+          console.log('All server modules loaded');
+          EOF
+      - name: Integration smoke test against PostgreSQL
+        run: |
+          node render-server/index.js > /tmp/ecopoint-render.log 2>&1 &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+          healthy=0
+          for i in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:10000/healthz >/dev/null; then
+              healthy=1
+              break
+            fi
+            sleep 1
+          done
+          if [ "$healthy" -ne 1 ]; then
+            cat /tmp/ecopoint-render.log
+            exit 1
+          fi
+          node render-server/smoke.test.mjs

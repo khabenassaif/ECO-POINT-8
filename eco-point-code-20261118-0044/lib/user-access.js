@@ -1,4 +1,4 @@
-import { db } from "hatchable";
+import { db } from "../../render-server/sdk.js";
 
 export async function requireAllowedUser(req, res) {
   const user = req.user;

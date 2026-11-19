@@ -1,4 +1,4 @@
-import { db } from "hatchable";
+import { db } from "../../render-server/sdk.js";
 const encoder=new TextEncoder();
 const hex=bytes=>Array.from(bytes,b=>b.toString(16).padStart(2,"0")).join("");
 const sha256=async value=>hex(new Uint8Array(await crypto.subtle.digest("SHA-256",encoder.encode(String(value)))));

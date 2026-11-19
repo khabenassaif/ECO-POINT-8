@@ -1,5 +1,5 @@
-import { db, storage } from "hatchable";
-import { requireAllowedUser } from "lib/user-access.js";
+import { db, storage } from "../../../render-server/sdk.js";
+import { requireAllowedUser } from "../../lib/user-access.js";
 
 export const access="user";
 export const methods=["GET"];
