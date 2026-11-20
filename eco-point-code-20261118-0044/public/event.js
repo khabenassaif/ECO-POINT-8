@@ -41,14 +41,9 @@
   (own?'<div class="eco-your-ranking"><b>Posisimu: '+(own.rank?'#'+own.rank:'Belum masuk peringkat')+'</b><span>'+fmt(own.earned_points)+' poin kompetisi · '+fmt(own.approved_reports)+' laporan disetujui</span></div>':'');
  }
  function landing(e){
-  const desktop=document.querySelector('#ecoContestDesktop');
-  if(desktop)desktop.innerHTML='<section class="eco-event-banner"><div class="eco-event-banner-copy"><span class="eco-live-tag">🏆 '+safe(phaseText[e.phase]||'TOP 3 CHALLENGE')+'</span><h2>TOP 3 POINT<br><em>CHALLENGE!</em> 🎉</h2><p>Tiga peserta dengan poin laporan terbanyak berhak mendapatkan hadiah JETE. Semakin aktif pilah sampah, semakin besar peluangmu!</p><a href="/login" class="eco-banner-cta">Mulai kumpulkan poin →</a></div><div class="eco-event-banner-media">'+img(1,products[0].name,true)+'</div></section>'+dateBox(e)+prizes(e);
-  const mobile=document.querySelector('#ecoContestMobile');
-  if(mobile)mobile.innerHTML='<div class="eco-mobile-contest-badge">🔥 '+safe(phaseText[e.phase]||'Top 3')+'</div>'+dateBox(e);
-  const rail=document.querySelector('#mobileLandingRewards');
-  if(rail)rail.innerHTML=prizes(e);
-  const gallery=document.querySelector('#landingRewards');
-  if(gallery)gallery.innerHTML=prizes(e);
+  const banner='<section class="eco-event-banner"><div class="eco-event-banner-copy"><span class="eco-live-tag">🏆 '+safe(phaseText[e.phase]||'TOP 3 CHALLENGE')+'</span><h2>TOP 3 POINT<br><em>CHALLENGE!</em> 🎉</h2><p>Tiga peserta dengan poin laporan terbanyak berhak mendapatkan hadiah JETE. Semakin aktif pilah sampah, semakin besar peluangmu!</p><a href="/login" class="eco-banner-cta">Mulai kumpulkan poin →</a></div><div class="eco-event-banner-media">'+img(1,products[0].name,true)+'</div></section>';
+  const section=banner+dateBox(e)+prizes(e);
+  for(const selector of ['#ecoContestDesktop','#ecoContestMobile']){const host=document.querySelector(selector);if(host)host.innerHTML=section}
   tick();
  }
  function page(e,own){

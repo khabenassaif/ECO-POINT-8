@@ -391,3 +391,39 @@
  #mobileLandingRewards .eco-contest-product{width:100%;height:auto;aspect-ratio:1/1}
  #mobileLandingRewards .eco-contest-product .eco-jete-image{width:100%;height:100%;object-fit:contain}
 }
+
+
+/* Reference screenshot layout placed BELOW (not instead of) the landing page. */
+.eco-competition-bottom{padding:38px 0 72px;background:#fafcf7;border-top:1px solid #e1eadb}
+#ecoContestDesktop{width:min(calc(100% - 40px),1160px);max-width:1160px;margin:0 auto}
+#ecoContestDesktop .eco-event-banner{margin-top:0}
+#ecoContestDesktop>.eco-contest-prizes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+#ecoContestDesktop .eco-contest-product{width:100%;aspect-ratio:1}
+#ecoContestDesktop .eco-contest-product .eco-jete-image{width:100%;height:100%;object-fit:contain}
+@media(max-width:720px){
+ .eco-competition-bottom{display:none!important}
+ .m-contest-section{margin:30px 0 0;padding:0 0 24px}
+ #ecoContestMobile{display:block;width:100%;max-width:none}
+ #ecoContestMobile .eco-event-banner{display:grid;grid-template-columns:minmax(0,1fr);width:100%;min-height:0;margin:0 0 18px;border-radius:17px;box-shadow:4px 4px 0 #9dc665}
+ #ecoContestMobile .eco-event-banner-copy{padding:25px 19px 16px;align-items:flex-start}
+ #ecoContestMobile .eco-event-banner h2{font-size:clamp(29px,8vw,41px);line-height:1.04;margin:18px 0 12px}
+ #ecoContestMobile .eco-event-banner p{font-size:12px;line-height:1.55;max-width:45ch}
+ #ecoContestMobile .eco-event-banner-media{display:grid;min-height:190px;padding:16px;overflow:hidden}
+ #ecoContestMobile .eco-event-banner-media .eco-jete-image{width:min(65%,215px);height:auto;aspect-ratio:1;object-fit:contain;margin:0 auto}
+ #ecoContestMobile .eco-event-dategrid{display:grid;grid-template-columns:minmax(0,1fr);gap:9px;margin:19px 0 14px}
+ #ecoContestMobile .eco-event-dategrid>div{padding:14px 15px;border-radius:11px}
+ #ecoContestMobile .eco-event-dategrid strong{font-size:13px}
+ #ecoContestMobile .eco-event-timer{display:flex;justify-content:center;gap:7px;max-width:none;margin:15px 0 19px}
+ #ecoContestMobile .eco-event-timer>div{min-width:0;flex:1;padding:12px 5px}
+ #ecoContestMobile .eco-event-timer>div strong{font-size:clamp(19px,6vw,28px)}
+ #ecoContestMobile>.eco-contest-prizes{display:grid!important;grid-template-columns:minmax(0,1fr)!important;width:100%;max-width:none;gap:17px;margin:0;padding:0}
+ #ecoContestMobile .eco-contest-prize{display:block;position:relative;width:100%;max-width:none;margin:0;padding:0;border:3px solid #163c2a;border-radius:16px;box-shadow:4px 4px 0 #254936;overflow:hidden}
+ #ecoContestMobile .eco-contest-prize.prize-1{background:#eff9da}
+ #ecoContestMobile .eco-contest-prize.prize-2{background:#edf2ff}
+ #ecoContestMobile .eco-contest-prize.prize-3{background:#fae8dc}
+ #ecoContestMobile .eco-contest-medal{position:absolute;z-index:2;top:12px;left:12px;margin:0;padding:7px 10px;background:#fff;border:2px solid #173e2a;border-radius:9px;box-shadow:2px 2px 0 #173e2a;font-size:12px;line-height:1.2}
+ #ecoContestMobile .eco-contest-product{display:block;width:100%;height:auto;aspect-ratio:1;padding:0;margin:0;background:#fff;border-radius:0}
+ #ecoContestMobile .eco-contest-product .eco-jete-image{display:block;width:100%;max-width:none;height:100%;margin:0;border-radius:0;object-fit:contain}
+ #ecoContestMobile .eco-contest-product-caption{padding:13px 14px 16px;margin:0;text-align:left}
+ #ecoContestMobile .eco-contest-product-caption strong{font-size:16px}
+}

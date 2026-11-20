@@ -78,21 +78,16 @@ function mobilePublicHome(){
    <nav class="m-chips" aria-label="Kategori beranda"><a class="selected" href="#m-home">Untuk kamu</a><a href="#m-rewards">Hadiah</a><a href="#m-steps">Cara kerja</a><a href="/waste-guide">Panduan sampah</a></nav>
    <main class="m-feed">
     <section id="m-home" class="m-hero">
-      <div class="m-hero-copy"><div class="m-eyebrow">🌱 GERAKAN KAMPUS HIJAU</div><h1>Kumpulkan poin,<br><em>jadilah Top 3!</em></h1><p>Laporkan aksi pilah sampahmu, bersaing menjadi Top 3 dan menangkan hadiah JETE.</p><a class="m-hero-cta" href="/login">Mulai kumpulkan poin ${icon('arrow','sm')}</a></div>
-      <div class="m-hero-art"><img class="eco-jete-image eco-jete-1" src="/images/jete-mouse.webp" alt="Hadiah Juara 1: Mouse JETE MO106" width="640" height="640" loading="eager" decoding="async"></div>
+      <div class="m-hero-copy"><div class="m-eyebrow">🌱 GERAKAN KAMPUS HIJAU</div><h1>Pilah sampah,<br><em>kumpulkan poin!</em></h1><p>Mulai aksi kecil untuk kampus lebih hijau. Laporkan pemilahan sampahmu dan dapatkan Eco-Points.</p><a class="m-hero-cta" href="/login">Mulai kumpulkan poin ${icon('arrow','sm')}</a></div>
+      <div class="m-hero-art"><img src="/images/eco-premium.svg" alt="Ilustrasi aksi pemilahan sampah di kampus" width="640" height="640" loading="eager" decoding="async"></div>
     </section>
-    <section id="ecoContestMobile" class="eco-contest-mobile-preview"></section><section class="m-shortcuts" aria-label="Aksi cepat">
+    <section class="m-shortcuts" aria-label="Aksi cepat">
       <a href="/login?next=%2Freport"><span class="m-short-icon mint">${icon('upload')}</span><b>Lapor</b></a>
       <a href="/login?next=%2Fredemptions"><span class="m-short-icon peach">${icon('gift')}</span><b>Top 3 Hadiah</b></a>
       <a href="/locations"><span class="m-short-icon blue">${icon('pin')}</span><b>Lokasi</b></a>
       <a href="/waste-guide"><span class="m-short-icon yellow">${icon('recycle')}</span><b>Panduan</b></a>
     </section>
     <div class="m-points-strip"><div><strong>+5–10</strong><span>poin per laporan disetujui</span></div><span class="m-strip-divider"></span><div><strong>TOP 3</strong><span>poin terbanyak menang</span></div></div>
-    <section class="m-section" id="m-rewards">
-      <div class="m-section-head"><div><span class="m-section-label">MERCHANDISE</span><h2>Rebut 3 hadiah JETE! 🎁</h2></div><a href="/login?next=%2Fredemptions">Lihat semua</a></div>
-      <p class="m-section-sub">Hadiah untuk JUARA 1, JUARA 2, dan JUARA 3.</p>
-      <div id="mobileLandingRewards" class="m-reward-rail"><div class="m-loading">Memuat hadiah…</div></div>
-    </section>
     <section class="m-section" id="m-steps">
       <div class="m-section-head"><div><span class="m-section-label">MUDAH BANGET</span><h2>Cara dapat poin</h2></div><a href="/how-it-works">Detail</a></div>
       <div class="m-steps-list">
@@ -103,13 +98,32 @@ function mobilePublicHome(){
       </div>
     </section>
     <section class="m-impact-tile"><span>KENAPA ECO-POINT?</span><div><strong>98,1%</strong><p>responden survei awal setuju insentif digital dapat mendorong pemilahan sampah.</p></div></section>
+    <section class="m-section m-contest-section" id="m-rewards" aria-label="Kompetisi Top 3 Point Challenge"><div id="ecoContestMobile" aria-live="polite"></div></section>
    </main>
    <nav class="m-public-bottom" aria-label="Navigasi Eco-Point"><a href="/" class="active">${icon('home')}<span>Beranda</span></a><a href="/waste-guide">${icon('recycle')}<span>Panduan</span></a><a class="m-bottom-main" href="/login?next=%2Freport"><span class="m-plus">${icon('plus')}</span><span>Lapor</span></a><a href="/locations">${icon('pin')}<span>Lokasi</span></a><a href="/login">${icon('user')}<span>Akun</span></a></nav>
   </div>`;
 }
 async function landing(){
  root.innerHTML=mobilePublicHome()+publicHeader()+`<main class="taste-home">
-  <div id="ecoContestDesktop"></div><section class="taste-section taste-how" id="alur">
+  <section class="taste-hero">
+   <div class="taste-hero-inner">
+    <div class="taste-hero-copy">
+     <span class="taste-tag"><span class="taste-tag-mark"></span> Eco-Point • Telkom University</span>
+     <h1>Pilah sampah.<br><span>Kumpulkan poin.</span></h1>
+     <p>Aksi kecil untuk kampus yang lebih hijau. Dokumentasikan pemilahan sampah, dapatkan Eco-Points, dan ikuti kompetisi Top 3 berhadiah JETE.</p>
+     <div class="taste-hero-cta"><a href="/login" class="taste-btn taste-btn-lime">Mulai beraksi ${icon('arrow','sm')}</a><a href="#alur" class="taste-btn taste-btn-outline">Lihat cara kerja</a></div>
+    </div>
+    <div class="taste-hero-art" data-tilt data-tilt-strength="3" aria-label="Ilustrasi kegiatan pemilahan sampah">
+     <div class="taste-art-ring taste-art-ring-one" aria-hidden="true"></div>
+     <div class="taste-art-ring taste-art-ring-two" aria-hidden="true"></div>
+     <div class="taste-art-platform" aria-hidden="true"></div>
+     <img class="taste-hero-illustration" src="/images/eco-premium.svg" alt="Ilustrasi mahasiswa memilah sampah untuk Eco-Point">
+     <div class="taste-art-label taste-label-top">${icon('leaf','sm')} Aksi ramah lingkungan</div>
+     <div class="taste-art-label taste-label-bottom">${icon('gift','sm')} Top 3 berhadiah JETE</div>
+    </div>
+   </div>
+  </section>
+  <section class="taste-section taste-how" id="alur">
    <div class="taste-section-intro"><span class="taste-kicker">Cara kerja</span><h2>Mulai dari satu aksi sederhana.</h2><p>Empat langkah mudah. Tidak perlu proses yang rumit.</p></div>
    <div class="taste-steps">
     <article class="taste-step"><div class="taste-step-top"><span>01</span><span class="taste-step-icon">${icon('recycle')}</span></div><h3>Pilah sampah</h3><p>Pisahkan sampah sesuai kategori yang tersedia.</p></article>
@@ -126,6 +140,7 @@ async function landing(){
    </div>
   </section>
 
+  <section class="eco-competition-bottom" id="kompetisi" aria-label="Kompetisi Top 3 Point Challenge"><div id="ecoContestDesktop" aria-live="polite"></div></section>
  </main>${footer()}`;
  wirePublicNav();
  try{
@@ -133,7 +148,7 @@ async function landing(){
   window.EcoContest.landing(e);
   window.EcoContest.startTimer();
  }catch(error){
-  for(const id of ['landingRewards','mobileLandingRewards','ecoContestDesktop','ecoContestMobile']){
+  for(const id of ['ecoContestDesktop','ecoContestMobile']){
    const el=document.getElementById(id);if(el)el.innerHTML='<p class="eco-empty-rank">Informasi kompetisi belum dapat dimuat. Coba muat ulang.</p>';
   }
  }
