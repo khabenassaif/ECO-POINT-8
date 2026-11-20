@@ -8,6 +8,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { db, mediaSignature } from './sdk.js';
 import { initializeDatabase } from './bootstrap.js';
+import { registerPasswordAuth } from './password-auth.js';
 
 const app=express();
 const root=join(dirname(fileURLToPath(import.meta.url)),'..','eco-point-code-20261118-0044');
@@ -30,12 +31,6 @@ app.use(helmet({contentSecurityPolicy:false,crossOriginEmbedderPolicy:false}));
 app.use(express.json({limit:'1mb'}));
 app.use(express.urlencoded({extended:false,limit:'1mb'}));
 app.use(cookieParser());
-// Public production launch: publish the site and catalog without exposing unfinished member/admin actions.
-// Keep preview unchanged for protected end-to-end integration tests.
-if(process.env.VERCEL_ENV==='production') {
-  app.use(['/api/admin','/api/student','/api/auth/login'],(req,res)=>
-    res.status(503).json({error:'Fitur akun, laporan, penukaran, dan admin belum dibuka untuk umum. Website informasi ECO-POINT sudah tersedia.'}));
-}
 
 // Preview may display the public site before Neon and authentication are configured.
 // No mock balances, reports or login sessions are created.
@@ -89,7 +84,8 @@ async function sendLoginCode(email,code) {
   throw Object.assign(new Error('Email belum disiapkan. Setel RESEND_API_KEY dan EMAIL_FROM di Render.'),{status:503});
 }
 app.get('/api/auth/session',(req,res)=>res.json({user:req.user||null}));
-app.get('/api/auth/providers',(req,res)=>res.json({providers:['email']}));
+app.get('/api/auth/providers',(req,res)=>res.json({providers:['password',...(process.env.EMAIL_FROM&&(process.env.RESEND_API_KEY||(process.env.SMTP_HOST&&process.env.SMTP_USER&&process.env.SMTP_PASSWORD))?['email']:[])]}));
+registerPasswordAuth(app,{db,digest,makeToken,secure,cleanEmail});
 app.post('/api/auth/login/start',async(req,res,next)=>{
   try{
     const email=cleanEmail(req.body?.email);
