@@ -109,28 +109,6 @@ function mobilePublicHome(){
 }
 async function landing(){
  root.innerHTML=mobilePublicHome()+publicHeader()+`<main class="taste-home">
-  <section class="taste-hero">
-   <div class="taste-hero-inner">
-    <div class="taste-hero-copy">
-     <span class="taste-tag"><span class="taste-tag-mark"></span> Eco-Point • Telkom University</span>
-     <h1>Pilah sampah.<br><span>Jadilah juara Top 3!</span></h1>
-     <p>Aksi kecil untuk kampus yang lebih hijau. Dokumentasikan pemilahan sampah, dapatkan Eco-Points, dan raih tiga hadiah JETE untuk peringkat terbaik.</p>
-     <div class="taste-hero-cta">
-      <a href="/login" class="taste-btn taste-btn-lime">Mulai beraksi ${icon('arrow','sm')}</a>
-      <a href="#alur" class="taste-btn taste-btn-outline">Lihat cara kerja</a>
-     </div>
-    </div>
-    <div class="taste-hero-art" data-tilt data-tilt-strength="3" aria-label="Ilustrasi kegiatan pemilahan sampah">
-     <div class="taste-art-ring taste-art-ring-one" aria-hidden="true"></div>
-     <div class="taste-art-ring taste-art-ring-two" aria-hidden="true"></div>
-     <div class="taste-art-platform" aria-hidden="true"></div>
-     <img class="taste-hero-illustration" src="/images/eco-premium.svg" alt="Ilustrasi mahasiswa memilah sampah untuk Eco-Point">
-     <div class="taste-art-label taste-label-top">${icon('leaf','sm')} Aksi ramah lingkungan</div>
-     <div class="taste-art-label taste-label-bottom">${icon('gift','sm')} Reward dari Eco-Points</div>
-    </div>
-   </div>
-  </section>
-
   <div id="ecoContestDesktop"></div><section class="taste-section taste-how" id="alur">
    <div class="taste-section-intro"><span class="taste-kicker">Cara kerja</span><h2>Mulai dari satu aksi sederhana.</h2><p>Empat langkah mudah. Tidak perlu proses yang rumit.</p></div>
    <div class="taste-steps">
@@ -148,10 +126,6 @@ async function landing(){
    </div>
   </section>
 
-  <section class="taste-section taste-rewards" id="reward">
-   <div class="taste-rewards-heading"><div><span class="taste-kicker">Reward Eco-Point</span><h2>Tiga hadiah. Tiga pemenang!</h2><p>Menang berdasarkan akumulasi poin laporan yang disetujui admin.</p></div><a href="/login" class="taste-simple-link">Masuk ke katalog ${icon('arrow','sm')}</a></div>
-   <div id="landingRewards" class="taste-reward-grid"><div class="taste-loader">Memuat katalog reward…</div></div>
-  </section>
  </main>${footer()}`;
  wirePublicNav();
  try{

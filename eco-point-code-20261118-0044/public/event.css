@@ -286,3 +286,108 @@
     font-size:14px;
   }
 }
+
+
+/* Screenshot reference: one centered competition banner, dates, timer, then three
+   substantial prize cards in the SAME aligned content column. */
+.taste-home:has(#ecoContestDesktop){overflow-x:clip}
+#ecoContestDesktop{
+  width:min(100% - 40px,1160px);
+  margin:0 auto 38px;
+  padding:0;
+}
+#ecoContestDesktop .eco-event-banner{
+  width:100%;
+  max-width:none;
+  min-height:350px;
+  margin:18px 0 22px;
+  grid-template-columns:minmax(0,1.3fr) minmax(300px,.7fr);
+  border-radius:23px;
+}
+#ecoContestDesktop .eco-event-banner-copy{padding:35px clamp(28px,4vw,55px)}
+#ecoContestDesktop .eco-event-banner-media .eco-jete-image{
+  width:min(84%,315px);
+  height:auto;
+  aspect-ratio:1/1;
+  object-fit:contain;
+}
+#ecoContestDesktop .eco-event-dategrid{max-width:none;margin:18px 0 12px;gap:12px}
+#ecoContestDesktop .eco-event-timer{margin:12px auto 20px}
+#ecoContestDesktop>.eco-contest-prizes{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:18px;
+  width:100%;
+  max-width:none;
+  margin:0;
+}
+#ecoContestDesktop .eco-contest-prize{
+  position:relative;
+  display:block;
+  padding:0;
+  overflow:hidden;
+  border:3px solid #163c2a;
+  border-radius:17px;
+  box-shadow:5px 5px 0 #254936;
+  background:#eff9da;
+}
+#ecoContestDesktop .eco-contest-prize.prize-2{background:#edf2ff}
+#ecoContestDesktop .eco-contest-prize.prize-3{background:#fae8dc}
+#ecoContestDesktop .eco-contest-medal{
+  position:absolute;
+  z-index:2;
+  top:13px;
+  left:13px;
+  margin:0;
+  padding:8px 12px;
+  background:#fff;
+  border:2px solid #173e2a;
+  border-radius:9px;
+  box-shadow:2px 2px 0 #173e2a;
+  font-size:13px;
+  line-height:1.25;
+}
+#ecoContestDesktop .eco-contest-product{
+  width:100%;
+  height:auto;
+  aspect-ratio:1/1;
+  padding:0;
+  margin:0;
+  background:#fff;
+  border-radius:0;
+}
+#ecoContestDesktop .eco-contest-product .eco-jete-image{
+  display:block;
+  width:100%;
+  height:100%;
+  max-width:none;
+  border-radius:0;
+  margin:0;
+  object-fit:contain;
+}
+#ecoContestDesktop .eco-contest-product-caption{
+  padding:12px 16px 16px;
+  background:transparent;
+  text-align:left;
+}
+#ecoContestDesktop .eco-contest-product-caption strong{font-size:17px}
+@media (min-width:721px) and (max-width:950px){
+ #ecoContestDesktop{width:calc(100% - 28px)}
+ #ecoContestDesktop .eco-event-banner{grid-template-columns:minmax(0,1.2fr) minmax(230px,.8fr)}
+ #ecoContestDesktop .eco-contest-medal{top:8px;left:8px;font-size:11px;padding:6px 8px}
+}
+@media(max-width:720px){
+ #ecoContestDesktop{display:none}
+ #mobileLandingRewards.m-reward-rail{display:block;overflow:visible}
+ #mobileLandingRewards>.eco-contest-prizes{
+   width:100%;
+   max-width:none;
+   display:grid;
+   grid-template-columns:1fr;
+   gap:14px;
+   padding:0;
+ }
+ #mobileLandingRewards .eco-contest-prize{width:100%;max-width:none}
+ #mobileLandingRewards .eco-contest-product{width:100%;height:auto;aspect-ratio:1/1}
+ #mobileLandingRewards .eco-contest-product .eco-jete-image{width:100%;height:100%;object-fit:contain}
+}
