@@ -1,7 +1,7 @@
 import crypto from 'node:crypto';
 import { promisify } from 'node:util';
 const scrypt = promisify(crypto.scrypt);
-const validEmail = email => /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/.test(email) && email.length<=254;
+const validEmail = email => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) && email.length<=254;
 const validPassword = password => typeof password==='string' && password.length>=10 && password.length<=128;
 async function hashPassword(password) {
   const salt=crypto.randomBytes(16).toString('hex');

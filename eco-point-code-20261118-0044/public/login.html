@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Masuk ke Eco-Point menggunakan email atau Google.">
+  <meta name="description" content="Masuk ke Eco-Point menggunakan email dan kata sandi.">
   <title>Masuk Member atau Admin · Eco-Point</title>
   <link rel="stylesheet" href="/theme.css">
   <link rel="stylesheet" href="/premium.css">
@@ -26,157 +26,181 @@
     <div class="green-campus-login-lockup"><img src="/images/green-campus-logo.svg" alt="Green Campus" width="186" height="75"></div>
     <div>
       <div class="eyebrow" style="color:#9bd5b3">Eco-Point Access</div>
-      <h2>Satu platform, dua peran untuk kampus lebih hijau.</h2>
-      <p>Mahasiswa mengirim laporan sampah dan mengumpulkan poin. Administrator memverifikasi laporan dan menentukan persetujuannya.</p>
+      <h2>Pilah sampah, kumpulkan poin.</h2>
+      <p>Daftar sekali, lalu laporkan aksi pilah sampahmu dan kumpulkan Eco-Points. Hadiah ditentukan dari peringkat kompetisi.</p>
     </div>
     <img src="/images/eco-premium.svg" alt="Ilustrasi ekosistem Eco-Point">
   </section>
 
+
   <main class="login-panel">
-    <div class="login-card">
+    <div class="login-card auth-simple-card">
       <a href="/" class="brand">
-        <span class="brandmark">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15 5 19.3 6.8 21 10.2c-1.2 5.5-5.1 8.8-10 8.8"/><path d="M3 21c3-5 7-8 13-10"/></svg>
-        </span>
+        <span class="brandmark"><svg class="icon" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15 5 19.3 6.8 21 10.2c-1.2 5.5-5.1 8.8-10 8.8"/><path d="M3 21c3-5 7-8 13-10"/></svg></span>
         <span>Eco-Point</span>
       </a>
-
-      <div class="green-campus-login-mini"><img src="/images/green-campus-logo.svg" alt="Logo Green Campus" width="150" height="60"></div>
-      <div class="login-role-intro"><span class="login-role-kicker">PILIH AKSES ECO-POINT</span><h2>Masuk sebagai apa?</h2><p>Akses mahasiswa untuk mengirim laporan, atau akses admin untuk meninjau dan memutuskan laporan.</p></div>
-      <div class="login-role-grid" role="group" aria-label="Pilih jenis akses">
-        <button type="button" class="login-role-option active" id="roleMember" aria-pressed="true"><span class="login-role-symbol">🌱</span><strong>Member / Umum</strong><small>Laporkan sampah & kumpulkan poin</small></button>
-        <button type="button" class="login-role-option" id="roleAdmin" aria-pressed="false"><span class="login-role-symbol">🛡️</span><strong>Administrator</strong><small>Login kode akses untuk memutuskan laporan</small></button>
+      <div class="green-campus-login-mini"><img src="/images/green-campus-logo.svg" alt="Green Campus" width="150" height="60"></div>
+      <div class="auth-simple-heading">
+        <span class="login-role-kicker">🌱 AKUN ECO-POINT</span>
+        <h1 id="loginTitle">Masuk ke Eco-Point</h1>
+        <p id="loginDescription">Masuk untuk melihat poin dan melaporkan kegiatan pilah sampah.</p>
       </div>
-      <div id="memberLogin">
-        <div class="eyebrow" style="margin-top:22px">AKSES MEMBER</div>
-        <h1 id="loginTitle">Masuk ke Eco-Point 🌱</h1>
-        <p id="loginDescription">Gunakan email dan kata sandi untuk mengakses dashboard, laporan, dan poin.</p>
-        <div class="login-role-grid" role="group" aria-label="Masuk atau daftar" style="margin:16px 0 22px">
-          <button class="login-role-option active" type="button" id="modeLogin" aria-pressed="true"><strong>Masuk</strong><small>Sudah punya akun</small></button>
-          <button class="login-role-option" type="button" id="modeRegister" aria-pressed="false"><strong>Daftar</strong><small>Buat akun baru</small></button>
+      <div class="auth-simple-tabs" role="group" aria-label="Pilihan masuk atau daftar">
+        <button type="button" id="modeLogin" class="auth-simple-tab active" aria-pressed="true">Masuk</button>
+        <button type="button" id="modeRegister" class="auth-simple-tab" aria-pressed="false">Daftar akun</button>
+      </div>
+      <form id="passwordForm" autocomplete="on">
+        <div class="field" id="nameField" hidden>
+          <label for="memberName">Nama lengkap</label>
+          <input id="memberName" name="name" autocomplete="name" minlength="2" maxlength="120" placeholder="Nama kamu">
         </div>
-        <form id="passwordForm">
-          <div class="field" id="nameField" hidden>
-            <label for="memberName">Nama lengkap</label>
-            <input id="memberName" name="name" autocomplete="name" minlength="2" maxlength="120" placeholder="Nama lengkap">
-          </div>
-          <div class="field">
-            <label for="memberEmail">Email</label>
-            <input id="memberEmail" name="email" type="email" autocomplete="username" maxlength="254" required placeholder="nama@email.com">
-          </div>
-          <div class="field">
-            <label for="memberPassword">Kata sandi</label>
-            <div style="display:flex;gap:8px;align-items:center">
-              <input id="memberPassword" name="password" type="password" autocomplete="current-password" required minlength="10" maxlength="128" placeholder="Minimal 10 karakter" style="flex:1;min-width:0">
-              <button id="showPassword" class="btn ghost" type="button" aria-label="Tampilkan kata sandi">Lihat</button>
-            </div>
-          </div>
-          <button id="passwordSubmit" class="btn primary large" style="width:100%;margin-top:12px" type="submit">Masuk ke dashboard</button>
-        </form>
-        <p id="loginStatus" class="login-note" role="status" aria-live="polite">Koneksi aman melalui Vercel dan database Neon.</p>
-        <div class="login-note"><b>Catatan keamanan:</b> Email belum diverifikasi otomatis. Laporan dan poin hanya dapat disetujui oleh administrator. Jangan menggunakan kata sandi yang sama dengan akun kampus Anda.</div>
-      </div>
-      <div id="adminLogin" hidden>
-        <span class="login-admin-chip">🛡️ AREA ADMIN TERBATAS</span>
-        <h1>Panel keputusan laporan</h1>
-        <p>Admin dapat memeriksa foto dan lokasi laporan, memutuskan <b>Setujui</b> atau <b>Tolak</b> dengan alasan, serta mengelola hadiah dan data Eco-Point.</p>
-        <div class="login-admin-checks">
-          <span>✓ Antrean laporan pending</span>
-          <span>✓ Verifikasi bukti & GPS</span>
-          <span>✓ Keputusan dan alasan penolakan</span>
-          <span>✓ Pengelolaan reward dan kategori</span>
+        <div class="field">
+          <label for="memberEmail">Alamat email</label>
+          <input id="memberEmail" name="email" type="email" inputmode="email" autocomplete="username" maxlength="254" spellcheck="false" autocapitalize="none" required placeholder="nama@email.com">
         </div>
-        <a href="/admin/?tab=reports" class="btn primary large login-admin-cta">Masuk dengan kode akses →</a>
-        <p class="login-admin-disclaimer">Login admin sekarang cukup menggunakan <b>username bebas</b> dan <b>kode akses khusus</b>. Kode diverifikasi oleh server, tanpa mengirim OTP Gmail.</p>
-        <p class="login-admin-error" id="adminDenied" hidden>Akses ditolak. Masukkan kode akses admin yang benar untuk membuka panel.</p>
-      </div>
-      <a href="/" class="meta" style="display:inline-flex;align-items:center;gap:7px;margin-top:22px">← Kembali ke Eco-Point</a>
+        <div class="field">
+          <label for="memberPassword">Kata sandi</label>
+          <div class="auth-password-row">
+            <input id="memberPassword" name="password" type="password" autocomplete="current-password" required minlength="10" maxlength="128" placeholder="Minimal 10 karakter">
+            <button id="showPassword" class="auth-password-toggle" type="button" aria-label="Tampilkan kata sandi" aria-pressed="false">Lihat</button>
+          </div>
+        </div>
+        <button id="passwordSubmit" class="btn primary large auth-submit" type="submit">Masuk sekarang</button>
+      </form>
+      <p id="loginStatus" class="auth-feedback" role="status" aria-live="polite">Belum punya akun? Pilih Daftar akun di atas.</p>
+      <p class="auth-small-help" id="registerInfo" hidden>Daftar tanpa OTP atau verifikasi email. Gunakan email yang dapat kamu akses dan kata sandi yang berbeda dari akun kampusmu.</p>
+      <div class="auth-admin-link">Pengelola Eco-Point? <a href="/admin/">Masuk sebagai admin</a></div>
+      <a href="/" class="auth-return">← Kembali ke beranda</a>
     </div>
   </main>
 </div>
-
+<style id="eco-auth-simple-style">
+  [hidden]{display:none!important}
+  .auth-simple-card{max-width:500px;width:100%;padding:30px 30px 34px}
+  .auth-simple-heading{margin:15px 0 23px}
+  .auth-simple-heading h1{color:#173e2b;font-size:clamp(27px,2.7vw,36px);letter-spacing:-.045em;line-height:1.12;margin:18px 0 8px}
+  .auth-simple-heading p{font-size:13px;color:#5a7360;line-height:1.6;margin:0}
+  .auth-simple-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:5px;background:#edf2e9;border:1px solid #d6e3d2;border-radius:13px;margin:0 0 25px}
+  .auth-simple-tab{min-width:0;border:0;background:transparent;color:#45604b;font:inherit;font-weight:800;font-size:14px;min-height:43px;border-radius:9px;cursor:pointer;transition:background .15s,box-shadow .15s}
+  .auth-simple-tab.active{background:#fff;color:#16492e;box-shadow:0 2px 9px rgba(29,75,39,.13)}
+  .auth-simple-tab:focus-visible,.auth-password-toggle:focus-visible{outline:3px solid #83ba42;outline-offset:2px}
+  #passwordForm>.field{margin:0 0 16px}
+  #passwordForm>.field label{display:block;margin:0 0 7px;font-size:12px;font-weight:800;color:#254333}
+  #passwordForm input{display:block;width:100%;min-width:0;min-height:49px;padding:12px 13px;border:1.5px solid #cddbd0;border-radius:10px;background:#fff;color:#173e2b;font:inherit;font-size:14px;box-sizing:border-box}
+  #passwordForm input:focus{outline:3px solid #cfeab5;outline-offset:1px;border-color:#45864d}
+  .auth-password-row{display:flex;gap:8px;align-items:stretch}
+  .auth-password-row input{flex:1}
+  .auth-password-toggle{min-width:74px;padding:8px 11px;border:1.5px solid #cddbd0;border-radius:10px;background:#f6f9f1;font-size:12px;font-weight:800;color:#275338;cursor:pointer}
+  .auth-submit{display:block;width:100%;margin:9px 0 0;min-height:51px;font-weight:900;cursor:pointer}
+  .auth-submit:disabled{opacity:.68;cursor:wait}
+  .auth-feedback{font-size:12px;line-height:1.6;min-height:20px;color:#5d705f;margin:14px 0 0}
+  .auth-feedback.is-error{color:#a02e39;font-weight:700}
+  .auth-feedback.is-success{color:#207044;font-weight:700}
+  .auth-small-help{font-size:11px;color:#68806c;line-height:1.55;margin:7px 0 0}
+  .auth-admin-link{font-size:12px;color:#637968;border-top:1px solid #e3eae1;padding-top:20px;margin-top:24px;text-align:center}
+  .auth-admin-link a{color:#176d43;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+  .auth-return{display:inline-block;font-size:12px;color:#496e55;margin-top:22px;text-decoration:none}
+  @media(max-width:750px){.auth-simple-card{max-width:490px;padding:25px 20px 28px}.auth-simple-heading{margin:10px 0 20px}.auth-simple-heading h1{font-size:29px}}
+  @media(max-width:360px){.auth-simple-card{padding:22px 15px}.auth-simple-tab{font-size:12px}.auth-password-toggle{min-width:65px}}
+  @media(prefers-reduced-motion:reduce){.auth-simple-tab{transition:none}}
+</style>
 <script src="/auth-bridge.js?v=23"></script>
 <script>
 (function(){
-  const qs=id=>document.getElementById(id);
-  const params=new URLSearchParams(location.search);
-  const rawNext=params.get('next')||'/dashboard';
-  const next=rawNext.startsWith('/')&&!rawNext.startsWith('//')&&!/[\\\\\\x00-\\x1f\\x7f]/.test(rawNext)?rawNext:'/dashboard';
-  const roleMember=qs('roleMember'),roleAdmin=qs('roleAdmin');
-  const memberPanel=qs('memberLogin'),adminPanel=qs('adminLogin');
-  const loginButton=qs('modeLogin'),registerButton=qs('modeRegister');
-  const form=qs('passwordForm'),name=qs('memberName'),email=qs('memberEmail'),password=qs('memberPassword');
-  const submit=qs('passwordSubmit'),status=qs('loginStatus');
-  let mode='login';
-  const message=(text,isError)=>{
-    status.textContent=text;
-    status.style.color=isError?'#ad3333':'';
-  };
-  function selectRole(role){
-    const admin=role==='admin';
-    memberPanel.hidden=admin;adminPanel.hidden=!admin;
-    roleMember.classList.toggle('active',!admin);
-    roleAdmin.classList.toggle('active',admin);
-    roleMember.setAttribute('aria-pressed',String(!admin));
-    roleAdmin.setAttribute('aria-pressed',String(admin));
-    const url=new URL(location.href);url.searchParams.set('role',role);
-    history.replaceState(null,'',url.pathname+url.search);
+  'use strict';
+  const byId=id=>document.getElementById(id);
+  const query=new URLSearchParams(location.search);
+  if(query.get('role')==='admin'){location.replace('/admin/');return;}
+  function destination(value){
+    if(!value||!value.startsWith('/')||value.startsWith('//')||value.includes('\\'))return '/dashboard';
+    try{
+      const target=new URL(value,location.origin);
+      if(target.origin!==location.origin||target.pathname==='/login'||target.pathname.startsWith('/admin'))return '/dashboard';
+      return target.pathname+target.search+target.hash;
+    }catch{return '/dashboard';}
+  }
+  const next=destination(query.get('next')||'/dashboard');
+  const form=byId('passwordForm'),email=byId('memberEmail'),password=byId('memberPassword');
+  const name=byId('memberName'),nameField=byId('nameField'),submit=byId('passwordSubmit');
+  const status=byId('loginStatus'),loginTab=byId('modeLogin'),registerTab=byId('modeRegister');
+  let mode='login',busy=false;
+  function feedback(message,kind){
+    status.textContent=message;
+    status.classList.toggle('is-error',kind==='error');
+    status.classList.toggle('is-success',kind==='success');
   }
   function selectMode(selected){
-    mode=selected;
-    const register=selected==='register';
-    qs('nameField').hidden=!register;
+    if(busy)return;
+    mode=selected==='register'?'register':'login';
+    const register=mode==='register';
+    nameField.hidden=!register;
+    name.disabled=!register;
     name.required=register;
-    loginButton.classList.toggle('active',!register);
-    registerButton.classList.toggle('active',register);
-    loginButton.setAttribute('aria-pressed',String(!register));
-    registerButton.setAttribute('aria-pressed',String(register));
-    qs('loginTitle').textContent=register?'Daftar Eco-Point 🌱':'Masuk ke Eco-Point 🌱';
-    qs('loginDescription').textContent=register?'Buat akun untuk mulai mencatat aksi dan mengumpulkan poin.':'Gunakan email dan kata sandi akun Eco-Point.';
-    password.setAttribute('autocomplete',register?'new-password':'current-password');
-    submit.textContent=register?'Daftar dan mulai':'Masuk ke dashboard';
-    message(register?'Gunakan kata sandi minimal 10 karakter. Email tidak diverifikasi otomatis.':'Masuk menggunakan akun yang sudah didaftarkan.',false);
+    password.autocomplete=register?'new-password':'current-password';
+    loginTab.classList.toggle('active',!register);
+    registerTab.classList.toggle('active',register);
+    loginTab.setAttribute('aria-pressed',String(!register));
+    registerTab.setAttribute('aria-pressed',String(register));
+    byId('loginTitle').textContent=register?'Daftar Eco-Point':'Masuk ke Eco-Point';
+    byId('loginDescription').textContent=register?'Buat akun dengan nama, email, dan kata sandi.':'Masuk untuk melihat poin dan melaporkan kegiatan pilah sampah.';
+    submit.textContent=register?'Buat akun dan masuk':'Masuk sekarang';
+    byId('registerInfo').hidden=!register;
+    feedback(register?'Hanya tiga data, tanpa OTP.':'Belum punya akun? Pilih Daftar akun di atas.','info');
+    password.value='';
   }
-  roleMember.onclick=()=>selectRole('member');
-  roleAdmin.onclick=()=>selectRole('admin');
-  loginButton.onclick=()=>selectMode('login');
-  registerButton.onclick=()=>selectMode('register');
-  qs('showPassword').onclick=()=>{
-    const showing=password.type==='password';
-    password.type=showing?'text':'password';
-    qs('showPassword').textContent=showing?'Sembunyikan':'Lihat';
-  };
-  if(params.get('denied')==='1')qs('adminDenied').hidden=false;
-  selectMode(params.get('mode')==='register'?'register':'login');
-  selectRole(params.get('role')==='admin'?'admin':'member');
-  async function request(path,data){
-    const response=await fetch(path,{method:'POST',credentials:'same-origin',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
-    const output=await response.json().catch(()=>({}));
-    if(!response.ok)throw new Error(output.error||output.message||'Koneksi server bermasalah.');
-    return output;
+  loginTab.addEventListener('click',()=>selectMode('login'));
+  registerTab.addEventListener('click',()=>selectMode('register'));
+  byId('showPassword').addEventListener('click',()=>{
+    const visible=password.type==='text';
+    password.type=visible?'password':'text';
+    byId('showPassword').textContent=visible?'Lihat':'Sembunyikan';
+    byId('showPassword').setAttribute('aria-pressed',String(!visible));
+  });
+  for(const input of [email,password,name]){
+    input.addEventListener('input',()=>{if(status.classList.contains('is-error'))feedback('Periksa kembali data kamu.','info')});
   }
-  form.onsubmit=async event=>{
-    event.preventDefault();
-    if(!form.reportValidity())return;
-    submit.disabled=true;
-    submit.textContent=mode==='register'?'Mendaftarkan akun…':'Memeriksa akun…';
-    message('Menghubungkan ke Neon…',false);
+  async function post(path,data){
+    let response;
     try{
-      const result=await request('/api/auth/password/'+(mode==='register'?'register':'login'),
-        {email:email.value.trim(),password:password.value,name:name.value.trim()});
-      if(!result.user)throw new Error('Sesi akun belum dibuat.');
-      message('Berhasil masuk. Membuka dashboard…',false);
-      location.assign(next);
-    }catch(error){
-      message(error.message||'Tidak dapat masuk. Coba lagi.',true);
-      submit.disabled=false;
-      submit.textContent=mode==='register'?'Daftar dan mulai':'Masuk ke dashboard';
+      response=await fetch(path,{method:'POST',credentials:'same-origin',cache:'no-store',
+        headers:{'Content-Type':'application/json'},body:JSON.stringify(data),signal:AbortSignal.timeout(20000)});
+    }catch(err){
+      throw new Error(err&&err.name==='TimeoutError'?'Server terlalu lama merespons. Coba lagi.':'Tidak dapat terhubung ke server. Periksa internet lalu coba lagi.');
     }
-  };
-  if(params.get('role')!=='admin'){
-    fetch('/api/auth/session',{credentials:'same-origin',cache:'no-store'})
-      .then(r=>r.ok?r.json():null).then(s=>{if(s&&s.user)location.replace(next)}).catch(()=>{});
+    const body=await response.json().catch(()=>({}));
+    if(!response.ok){
+      let message=body.error||body.message||'Tidak dapat memproses permintaan.';
+      if(response.status===503)message='Server sedang bermasalah. Silakan coba beberapa saat lagi.';
+      if(response.status===429)message=body.error||'Terlalu banyak percobaan. Coba lagi beberapa menit.';
+      const error=new Error(message);error.status=response.status;throw error;
+    }
+    return body;
   }
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();
+    if(busy||!form.reportValidity())return;
+    busy=true;submit.disabled=true;
+    const registering=mode==='register';
+    submit.textContent=registering?'Membuat akun…':'Sedang masuk…';
+    feedback('Menghubungkan akun…','info');
+    try{
+      const result=await post('/api/auth/password/'+(registering?'register':'login'),
+        {email:email.value.trim().toLowerCase(),password:password.value,name:name.value.trim()});
+      if(!result.user)throw new Error('Sesi belum berhasil dibuat.');
+      feedback(registering?'Akun dibuat! Membuka dashboard…':'Berhasil masuk! Membuka dashboard…','success');
+      location.replace(next);
+    }catch(err){
+      feedback(err.message||'Gagal masuk. Coba lagi.','error');
+      if(err.status===409 && registering){loginTab.focus();}
+      busy=false;submit.disabled=false;
+      submit.textContent=registering?'Buat akun dan masuk':'Masuk sekarang';
+    }
+  });
+  selectMode(query.get('mode')==='register'?'register':'login');
+  fetch('/api/auth/session',{credentials:'same-origin',cache:'no-store'})
+    .then(r=>r.ok?r.json():null)
+    .then(data=>{if(data&&data.user)location.replace(next)})
+    .catch(()=>{});
 })();
 </script>
 </body>
