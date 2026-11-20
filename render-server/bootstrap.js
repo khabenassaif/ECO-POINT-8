@@ -4,6 +4,11 @@ import { pbkdf2Sync, randomBytes } from 'node:crypto';
 import { db, pool } from './sdk.js';
 const source = new URL('../eco-point-code-20261118-0044/migrations/', import.meta.url);
 export async function initializeDatabase() {
+  // Auth base tables must exist before migration 0014 adds password_hash.
+  // On a fresh PostgreSQL database, running 0014 before creating accounts fails.
+  await db.query('CREATE TABLE IF NOT EXISTS eco_member_accounts (id TEXT PRIMARY KEY, email TEXT NOT NULL UNIQUE, name TEXT NOT NULL, verified_at TIMESTAMPTZ NOT NULL DEFAULT NOW())');
+  await db.query('CREATE TABLE IF NOT EXISTS eco_member_sessions (token_hash TEXT PRIMARY KEY, user_id TEXT NOT NULL, expires_at TIMESTAMPTZ NOT NULL, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW())');
+  await db.query('CREATE TABLE IF NOT EXISTS eco_member_login_codes (email TEXT PRIMARY KEY, digest TEXT NOT NULL, attempts INTEGER NOT NULL DEFAULT 0, created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(), expires_at TIMESTAMPTZ NOT NULL)');
   await db.query('CREATE TABLE IF NOT EXISTS eco_schema_migrations (name TEXT PRIMARY KEY, applied_at TIMESTAMPTZ NOT NULL DEFAULT NOW())');
   const files=(await readdir(source)).filter(x=>x.endsWith('.sql')).sort();
   for (const name of files) {
