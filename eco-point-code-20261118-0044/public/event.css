@@ -1,0 +1,132 @@
+/* Top 3 Eco-Point event; replaces wheel visuals without changing member reporting. */
+.eco-live-tag{display:inline-flex;align-items:center;gap:7px;padding:9px 12px;background:#d8f86d;border:2px solid #153e2c;border-radius:999px;color:#153e2c;font-size:11px;font-weight:950;letter-spacing:.04em;box-shadow:3px 3px 0 #153e2c}
+.eco-event-banner{display:grid;grid-template-columns:1.17fr .83fr;min-height:360px;border:3px solid #173b2c;background:#153f2f;color:#fff;border-radius:23px;margin:36px auto 28px;overflow:hidden;box-shadow:8px 8px 0 #a9dc60;max-width:1160px}
+.eco-event-banner-copy{padding:39px clamp(20px,4vw,56px);display:flex;flex-direction:column;align-items:start;justify-content:center}
+.eco-event-banner h2{font-size:clamp(34px,5vw,64px);line-height:.99;letter-spacing:-.065em;font-weight:950;margin:22px 0 15px;color:white}
+.eco-event-banner em,.eco-contest-page-hero em{font-style:normal;color:#d8f86d}
+.eco-event-banner p{font-size:14px;line-height:1.65;color:#e5f0df;max-width:480px;margin:0 0 20px}
+.eco-banner-cta{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:10px 20px;background:#d8f86d;border:2px solid #142f1f;border-radius:10px;color:#143f2e;font-weight:950;font-size:13px;text-decoration:none;box-shadow:4px 4px 0 #051f16}
+.eco-event-banner-media{display:grid;place-items:center;position:relative;background:radial-gradient(circle at center,#b8ea64 0,#4b8652 58%,#153f2f 59%);padding:30px;overflow:hidden}
+.eco-event-banner-media:before{content:"★";position:absolute;top:10%;right:10%;font-size:60px;color:#fff98b;transform:rotate(16deg)}
+.eco-event-banner-media .eco-jete-image{width:min(94%,340px);aspect-ratio:1;border:5px solid #153c2c;box-shadow:10px 13px 0 #0a3020;transform:rotate(-6deg)}
+.eco-jete-image{width:100%;aspect-ratio:1;background-size:cover;background-position:center;background-repeat:no-repeat;background-color:#fff;border-radius:14px}
+.eco-jete-1{background-image:url('/images/jete-mouse.webp?v=34')}.eco-jete-2{background-image:url('/images/jete-earphone.webp?v=34')}.eco-jete-3{background-image:url('/images/jete-mousepad.webp?v=34')}
+.eco-contest-prizes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;max-width:1160px;margin:24px auto 35px}
+.eco-contest-prize{position:relative;min-width:0;border:3px solid #153e2c;border-radius:17px;background:#fff;overflow:hidden;box-shadow:6px 6px 0 #153e2c}
+.eco-contest-prize.prize-1{background:#f4fedb}.eco-contest-prize.prize-2{background:#e8f5ff}.eco-contest-prize.prize-3{background:#fff1df}
+.eco-contest-medal{position:absolute;z-index:2;top:14px;left:14px;background:#fff;border:2px solid #153e2c;border-radius:10px;padding:7px 11px;font-size:12px;font-weight:950;box-shadow:2px 2px 0 #153e2c}
+.eco-contest-product{padding:48px 20px 10px}
+.eco-contest-product .eco-jete-image{max-width:320px;margin:auto;border-radius:12px}
+.eco-contest-product-caption{padding:12px 19px 22px;display:grid;gap:6px;text-align:center}
+.eco-contest-product-caption strong{font-size:18px;line-height:1.25;color:#153e2c}
+.eco-contest-product-caption span{color:#56715d;font-size:12px}
+.eco-event-dategrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;max-width:1160px;margin:17px auto}
+.eco-event-dategrid>div{padding:17px 18px;border:2px solid #bed5b6;border-radius:12px;background:#f5fce9;display:grid;gap:6px}
+.eco-event-dategrid span{font-size:11px;color:#617861}
+.eco-event-dategrid strong{font-size:13px;color:#173e2b}
+.eco-event-timer{display:flex;align-items:center;justify-content:center;gap:11px;margin:18px auto 24px;max-width:700px}
+.eco-event-timer>div{display:grid;min-width:85px;gap:6px;text-align:center;background:#143e2d;color:#fff;padding:14px;border-radius:12px}
+.eco-event-timer>div strong{font-size:27px;font-weight:950;line-height:1}
+.eco-event-timer>div span{font-size:10px;color:#daefcd}
+.eco-event-timer>b{display:block;border-radius:12px;padding:19px;background:#e2f8c5;color:#153e2c}
+.eco-contest-page{max-width:1160px;margin:0 auto;padding:14px 0 60px}
+.eco-contest-page-hero{border:3px solid #173e2a;border-radius:20px;padding:34px;background:linear-gradient(130deg,#154632,#237949);color:#fff;box-shadow:6px 6px 0 #b6e978}
+.eco-contest-page-hero h1{font-size:clamp(35px,6vw,65px);letter-spacing:-.06em;line-height:1.04;margin:18px 0}
+.eco-contest-page-hero p{font-size:14px;line-height:1.6;color:#e7f2e5;max-width:75ch;margin:0}
+.eco-contest-section-title{font-size:27px;letter-spacing:-.04em;margin:36px 0 13px}
+.eco-contest-countdown-panel{padding:28px;border:2px solid #153e2c;background:#fff5ce;border-radius:16px;margin:30px 0;box-shadow:5px 5px 0 #153e2c}
+.eco-contest-countdown-panel>div:first-child>span{font-size:11px;font-weight:900;letter-spacing:.06em}
+.eco-contest-countdown-panel h2{font-size:28px;line-height:1.1;margin:10px 0}
+.eco-contest-ranking{border:2px solid #c2d6bf;border-radius:16px;background:#fff;padding:24px;margin:26px 0}
+.eco-rank-head{display:flex;justify-content:space-between;align-items:center;gap:15px}
+.eco-rank-head span{font-size:11px;font-weight:900;color:#397f49}
+.eco-rank-head h3{font-size:25px;letter-spacing:-.04em;margin:5px 0 15px}
+.eco-rank-head small{font-size:12px;color:#658069}
+.eco-rank-list{display:grid;gap:8px}
+.eco-rank-line{display:grid;grid-template-columns:47px minmax(0,1fr) auto;align-items:center;gap:11px;border:1px solid #e3eadd;padding:12px 13px;border-radius:11px}
+.eco-rank-number{font-size:18px;font-weight:950;color:#39794e}
+.eco-rank-line strong{font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.eco-rank-line>span:last-child{font-size:13px;font-weight:900;color:#2b7a46}
+.eco-empty-rank{padding:25px 16px;background:#f5f9f3;border-radius:11px;color:#52725b;font-size:13px}
+.eco-your-ranking{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#e2f8c7;padding:16px;margin-top:13px;border-radius:11px}
+.eco-your-ranking b{font-size:14px}.eco-your-ranking span{font-size:12px}
+.eco-contest-rule{padding:23px;border:2px solid #153e2c;border-radius:15px;background:#eefadd}
+.eco-contest-rule strong{font-size:17px}.eco-contest-rule p{font-size:13px;line-height:1.7;max-width:85ch}
+.eco-contest-rule a{display:inline-block;background:#173e2c;color:white;padding:12px 18px;border-radius:9px;text-decoration:none;font-weight:900;font-size:12px}
+.eco-member-teaser{display:flex;align-items:center;gap:16px;border:2px solid #153e2c;background:#e7f6ce;border-radius:13px;padding:14px 16px;margin-bottom:17px}
+.eco-member-teaser>span{font-size:11px;font-weight:950;color:#22563b;white-space:nowrap}
+.eco-member-teaser>div{display:grid;gap:4px;min-width:0}.eco-member-teaser strong{font-size:13px}.eco-member-teaser small{font-size:11px}
+.eco-member-teaser a{margin-left:auto;white-space:nowrap;color:#225e3c;font-size:12px;font-weight:900}
+.eco-mobile-contest-badge{font-size:12px;font-weight:950;color:#2c7547;margin:9px 0}
+.eco-mobile-contest-badge+.eco-event-dategrid{grid-template-columns:1fr;gap:6px;margin:10px 0}
+.eco-mobile-contest-badge+.eco-event-dategrid>div{padding:8px}
+.eco-admin-event-card{background:#fff;border:2px solid #153c2a;border-radius:16px;padding:22px;box-shadow:4px 4px 0 #153c2a}
+.eco-admin-event-head>span{color:#2d7c44;font-size:11px;font-weight:950}
+.eco-admin-event-head h2{font-size:26px;letter-spacing:-.04em;margin:8px 0}
+.eco-admin-event-head p{font-size:12px;color:#5a7261}
+#ecoAdminEventForm{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:19px 0 28px}
+#ecoAdminEventForm label{font-size:12px;font-weight:900;display:grid;gap:8px}
+#ecoAdminEventForm input{height:46px;padding:10px;border:2px solid #a1bca4;border-radius:9px;font:inherit;font-size:13px;width:100%}
+#ecoAdminEventForm button{min-height:48px;grid-column:1/-1}
+#ecoAdminEventMessage{grid-column:1/-1;margin:0;font-size:12px}
+.eco-admin-event-leaderboard h3{font-size:18px;margin:15px 0}
+.eco-admin-ranking{display:grid;gap:7px}
+.eco-admin-ranking>div{display:grid;grid-template-columns:43px 1fr auto;align-items:center;gap:10px;padding:10px;border:1px solid #dde9d6;border-radius:9px;font-size:12px}
+.eco-admin-ranking strong{overflow:hidden;text-overflow:ellipsis}
+.eco-admin-ranking span{font-size:11px}
+.eco-admin-prize-gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:15px 0}
+.eco-admin-prize-gallery>div{border:2px solid #153c2a;border-radius:13px;padding:13px;background:#f5fce8;display:grid;gap:10px}
+.eco-admin-prize-gallery>div>span{font-weight:950;font-size:11px}
+.eco-admin-prize-gallery .eco-jete-image{border-radius:9px}
+.eco-admin-prize-gallery b{font-size:12px}
+.eco-admin-event-overview{display:flex;gap:14px;align-items:center;flex-wrap:wrap;padding:16px;border:2px solid #153c2a;background:#e8f9d1;border-radius:12px;margin-bottom:17px}
+.eco-admin-event-overview>*{font-size:12px}
+.eco-admin-event-overview a{color:#275f3d;font-weight:900}
+.eco-admin-load-error{color:#9a3636;padding:15px}
+@media(max-width:700px){
+ .eco-event-banner{display:grid;grid-template-columns:1fr 105px;min-height:200px;margin:15px 12px 22px;border-radius:14px;box-shadow:3px 3px 0 #93cb59}
+ .eco-event-banner-copy{padding:17px}
+ .eco-event-banner h2{font-size:28px;margin:13px 0}
+ .eco-event-banner p{font-size:11px;line-height:1.4}
+ .eco-event-banner-media{padding:6px}
+ .eco-event-banner-media .eco-jete-image{width:100%;border-width:2px}
+ .eco-contest-prizes{gap:9px;margin:17px 0 25px}
+ .eco-contest-prize{border-width:2px;border-radius:11px;box-shadow:2px 2px 0 #153e2c}
+ .eco-contest-medal{top:7px;left:6px;font-size:9px;padding:5px}
+ .eco-contest-product{padding:38px 5px 3px}
+ .eco-contest-product-caption{padding:7px 5px 11px}
+ .eco-contest-product-caption strong{font-size:11px}
+ .eco-contest-product-caption span{font-size:9px}
+ .eco-contest-page{padding:4px 0 40px}
+ .eco-contest-page-hero{padding:23px 16px;border-radius:13px}
+ .eco-contest-page-hero h1{font-size:33px}
+ .eco-contest-page-hero p{font-size:12px}
+ .eco-contest-section-title{font-size:20px;margin:20px 0 10px}
+ .eco-contest-countdown-panel{padding:14px;margin:20px 0}
+ .eco-contest-countdown-panel h2{font-size:19px}
+ .eco-event-dategrid{grid-template-columns:1fr;gap:7px}
+ .eco-event-dategrid>div{padding:10px 12px;gap:2px}
+ .eco-event-timer{gap:6px;margin:10px auto}
+ .eco-event-timer>div{min-width:0;flex:1;padding:10px 5px}
+ .eco-event-timer>div strong{font-size:23px}
+ .eco-contest-ranking{padding:13px;margin:16px 0}
+ .eco-rank-head h3{font-size:21px}
+ .eco-rank-line{grid-template-columns:32px 1fr auto;padding:10px 8px;gap:5px}
+ .eco-rank-line strong,.eco-rank-line>span:last-child{font-size:12px}
+ .eco-your-ranking{display:grid;gap:5px}
+ .eco-member-teaser{display:grid;gap:8px;padding:12px}
+ .eco-member-teaser a{margin:0}
+ .eco-admin-event-card{padding:14px}
+ #ecoAdminEventForm{grid-template-columns:1fr}
+ .eco-admin-prize-gallery{gap:6px}
+ .eco-admin-prize-gallery>div{padding:7px}
+ .eco-admin-prize-gallery b{font-size:10px}
+}.eco-contest-prizes.is-rail{display:flex;gap:12px;margin:0;width:max-content;max-width:none;padding:3px 0 10px}
+.eco-contest-prizes.is-rail .eco-contest-prize{flex:0 0 168px;width:168px;max-width:168px;scroll-snap-align:start}
+.eco-contest-prizes.is-rail .eco-contest-product{padding:42px 11px 5px}
+.eco-contest-prizes.is-rail .eco-contest-product-caption strong{font-size:12px}
+#mobileLandingRewards:has(.eco-contest-prizes){display:block;overflow-x:auto;scroll-snap-type:x mandatory}
+.eco-contest-mobile-preview .eco-event-timer>div{min-width:0;flex:1}
+.eco-contest-mobile-preview .eco-event-dategrid strong{font-size:11px}
+@media(min-width:721px){#ecoContestDesktop{padding:0 18px}}
+@media(max-width:720px){.eco-contest-mobile-preview{margin:0 0 14px}.m-reward-rail .eco-contest-prizes.is-rail{width:max-content}.m-reward-rail .eco-contest-prize{min-height:210px}}

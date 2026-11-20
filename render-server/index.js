@@ -140,9 +140,9 @@ app.get('/api/media',async(req,res,next)=>{
   }catch(e){next(e);}
 });
 const apiRoutes=[
-'admin/code-login','admin/manage','admin/overview','admin/redemptions','admin/report-photo','admin/reports','admin/review','admin/reward-image',
-'public/catalog','public/reward-image',
-'student/community','student/dashboard','student/profile','student/redeem','student/report-detail','student/report-photo','student/reports','student/rewards','student/spin-wheel','student/vouchers'
+'admin/code-login','admin/event','admin/manage','admin/overview','admin/redemptions','admin/report-photo','admin/reports','admin/review','admin/reward-image',
+'public/catalog','public/reward-image','public/event',
+'student/community','student/event','student/dashboard','student/profile','student/redeem','student/report-detail','student/report-photo','student/reports','student/rewards','student/spin-wheel','student/vouchers'
 ];
 for(const name of apiRoutes) {
   const module=await import('../eco-point-code-20261118-0044/api/'+name+'.js');
