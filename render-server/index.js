@@ -30,6 +30,13 @@ app.use(helmet({contentSecurityPolicy:false,crossOriginEmbedderPolicy:false}));
 app.use(express.json({limit:'1mb'}));
 app.use(express.urlencoded({extended:false,limit:'1mb'}));
 app.use(cookieParser());
+// Public production launch: publish the site and catalog without exposing unfinished member/admin actions.
+// Keep preview unchanged for protected end-to-end integration tests.
+if(process.env.VERCEL_ENV==='production') {
+  app.use(['/api/admin','/api/student','/api/auth/login'],(req,res)=>
+    res.status(503).json({error:'Fitur akun, laporan, penukaran, dan admin belum dibuka untuk umum. Website informasi ECO-POINT sudah tersedia.'}));
+}
+
 // Preview may display the public site before Neon and authentication are configured.
 // No mock balances, reports or login sessions are created.
 if(onVercel && !configured) app.use('/api',(req,res)=>res.status(503).json({error:'ECO-POINT masih mode pratinjau: database Neon dan autentikasi belum terhubung.'}));
