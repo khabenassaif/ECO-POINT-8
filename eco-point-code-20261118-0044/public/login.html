@@ -3,13 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="Masuk ke Eco-Point menggunakan email atau Google.">
+  <meta name="description" content="Masuk ke Eco-Point menggunakan email dan kata sandi.">
   <title>Masuk Member atau Admin · Eco-Point</title>
   <link rel="stylesheet" href="/theme.css">
   <link rel="stylesheet" href="/premium.css">
   <link rel="stylesheet" href="/taste.css?v=17">
   <link rel="stylesheet" href="/access.css?v=21">
   <link rel="stylesheet" href="/campus-brand.css?v=21">
+  <link rel="stylesheet" href="/responsive.css?v=35">
+  <link rel="stylesheet" href="/mobile-app.css?v=35">
+  <link rel="stylesheet" href="/mobile-redesign.css?v=35">
 </head>
 <body>
 <div class="login-shell">
@@ -23,279 +26,182 @@
     <div class="green-campus-login-lockup"><img src="/images/green-campus-logo.svg" alt="Green Campus" width="186" height="75"></div>
     <div>
       <div class="eyebrow" style="color:#9bd5b3">Eco-Point Access</div>
-      <h2>Satu platform, dua peran untuk kampus lebih hijau.</h2>
-      <p>Mahasiswa mengirim laporan sampah dan mengumpulkan poin. Administrator memverifikasi laporan dan menentukan persetujuannya.</p>
+      <h2>Pilah sampah, kumpulkan poin.</h2>
+      <p>Daftar sekali, lalu laporkan aksi pilah sampahmu dan kumpulkan Eco-Points. Hadiah ditentukan dari peringkat kompetisi.</p>
     </div>
     <img src="/images/eco-premium.svg" alt="Ilustrasi ekosistem Eco-Point">
   </section>
 
+
   <main class="login-panel">
-    <div class="login-card">
+    <div class="login-card auth-simple-card">
       <a href="/" class="brand">
-        <span class="brandmark">
-          <svg class="icon" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15 5 19.3 6.8 21 10.2c-1.2 5.5-5.1 8.8-10 8.8"/><path d="M3 21c3-5 7-8 13-10"/></svg>
-        </span>
+        <span class="brandmark"><svg class="icon" viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15 5 19.3 6.8 21 10.2c-1.2 5.5-5.1 8.8-10 8.8"/><path d="M3 21c3-5 7-8 13-10"/></svg></span>
         <span>Eco-Point</span>
       </a>
-
-      <div class="green-campus-login-mini"><img src="/images/green-campus-logo.svg" alt="Logo Green Campus" width="150" height="60"></div>
-      <div class="login-role-intro"><span class="login-role-kicker">PILIH AKSES ECO-POINT</span><h2>Masuk sebagai apa?</h2><p>Akses mahasiswa untuk mengirim laporan, atau akses admin untuk meninjau dan memutuskan laporan.</p></div>
-      <div class="login-role-grid" role="group" aria-label="Pilih jenis akses">
-        <button type="button" class="login-role-option active" id="roleMember" aria-pressed="true"><span class="login-role-symbol">🌱</span><strong>Member / Umum</strong><small>Laporkan sampah & kumpulkan poin</small></button>
-        <button type="button" class="login-role-option" id="roleAdmin" aria-pressed="false"><span class="login-role-symbol">🛡️</span><strong>Administrator</strong><small>Login kode akses untuk memutuskan laporan</small></button>
+      <div class="green-campus-login-mini"><img src="/images/green-campus-logo.svg" alt="Green Campus" width="150" height="60"></div>
+      <div class="auth-simple-heading">
+        <span class="login-role-kicker">🌱 AKUN ECO-POINT</span>
+        <h1 id="loginTitle">Masuk ke Eco-Point</h1>
+        <p id="loginDescription">Masuk untuk melihat poin dan melaporkan kegiatan pilah sampah.</p>
       </div>
-      <div id="memberLogin">
-      <div class="eyebrow" style="margin-top:22px">AKSES MEMBER</div>
-      <h1>Halo, pejuang lingkungan! 🌱</h1>
-      <p id="introText">Masuk menggunakan kode verifikasi 6 digit yang dikirim ke email Anda. Google dan passkey belum tersedia pada hosting ini.</p>
-      <div class="login-fast-label">MASUK AMAN DENGAN KODE EMAIL</div>
-      <button class="google-btn" id="googleLogin" type="button">
-        <svg class="google-logo" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="#4285F4" d="M21.6 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.4a4.6 4.6 0 0 1-2 3v2.5h3.3c1.9-1.8 2.9-4.4 2.9-7.3z"/>
-          <path fill="#34A853" d="M12 22c2.7 0 5-.9 6.7-2.5L15.4 17c-.9.6-2.1 1-3.4 1-2.6 0-4.8-1.8-5.6-4.2H3v2.6A10 10 0 0 0 12 22z"/>
-          <path fill="#FBBC05" d="M6.4 13.8A6 6 0 0 1 6.1 12c0-.6.1-1.2.3-1.8V7.6H3A10 10 0 0 0 2 12c0 1.6.4 3.1 1 4.4l3.4-2.6z"/>
-          <path fill="#EA4335" d="M12 6c1.5 0 2.9.5 4 1.6l3-3A10 10 0 0 0 3 7.6l3.4 2.6C7.2 7.8 9.4 6 12 6z"/>
-        </svg>
-        <span id="googleText">Google Login belum tersedia</span>
-      </button>
-
-      <form id="emailForm">
+      <div class="auth-simple-tabs" role="group" aria-label="Pilihan masuk atau daftar">
+        <button type="button" id="modeLogin" class="auth-simple-tab active" aria-pressed="true">Masuk</button>
+        <button type="button" id="modeRegister" class="auth-simple-tab" aria-pressed="false">Daftar akun</button>
+      </div>
+      <form id="passwordForm" autocomplete="on">
+        <div class="field" id="nameField" hidden>
+          <label for="memberName">Nama lengkap</label>
+          <input id="memberName" name="name" autocomplete="name" minlength="2" maxlength="120" placeholder="Nama kamu">
+        </div>
         <div class="field">
-          <label>Email</label>
-          <input id="email" type="email" autocomplete="username webauthn" required placeholder="nama@email.com">
+          <label for="memberEmail">Alamat email</label>
+          <input id="memberEmail" name="email" type="email" inputmode="email" autocomplete="username" maxlength="254" spellcheck="false" autocapitalize="none" required placeholder="nama@email.com">
         </div>
-        <button id="passkeyMember" disabled title="Passkey belum tersedia pada hosting ini" class="btn primary large" style="width:100%;margin-bottom:11px" type="button">Passkey belum tersedia</button><button id="emailSubmit" class="btn ghost large" style="width:100%" type="submit">Kirim kode email (cadangan)</button>
-      </form>
-
-      <form id="codeForm" style="display:none">
         <div class="field">
-          <label>Kode 6 digit</label>
-          <input id="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" required placeholder="000000">
+          <label for="memberPassword">Kata sandi</label>
+          <div class="auth-password-row">
+            <input id="memberPassword" name="password" type="password" autocomplete="current-password" required minlength="10" maxlength="128" placeholder="Minimal 10 karakter">
+            <button id="showPassword" class="auth-password-toggle" type="button" aria-label="Tampilkan kata sandi" aria-pressed="false">Lihat</button>
+          </div>
         </div>
-        <button id="codeSubmit" class="btn primary large" style="width:100%" type="submit">Verifikasi & masuk</button>
-        <button id="backBtn" class="btn ghost" style="width:100%;margin-top:9px" type="button">Ganti email</button>
+        <button id="passwordSubmit" class="btn primary large auth-submit" type="submit">Masuk sekarang</button>
       </form>
-
-      <div id="passkeyOffer" class="login-note" style="display:none">
-        <b>Login lebih cepat berikutnya?</b><br>
-        Tambahkan passkey agar bisa masuk dengan sidik jari, Face ID, atau screen lock perangkat.
-        <div style="display:flex;gap:8px;margin-top:10px">
-          <button class="btn soft" id="addPasskey" type="button">Tambahkan passkey</button>
-          <button class="btn ghost" id="skipPasskey" type="button">Nanti saja</button>
-        </div>
-      </div>
-
-      <div class="login-divider">atau</div>
-
-
-
-      <div id="loginStatus" class="login-note">Memeriksa status autentikasi…</div>
-
-      <div class="login-note"><b>Keamanan akun.</b> Email saja belum membuktikan identitas. Masuk tanpa kode memerlukan Google terverifikasi atau passkey yang sudah didaftarkan. Kode verifikasi sekali pakai dikirim ke email Anda.</div>
-
-      </div>
-      <div id="adminLogin" hidden>
-        <span class="login-admin-chip">🛡️ AREA ADMIN TERBATAS</span>
-        <h1>Panel keputusan laporan</h1>
-        <p>Admin dapat memeriksa foto dan lokasi laporan, memutuskan <b>Setujui</b> atau <b>Tolak</b> dengan alasan, serta mengelola hadiah dan data Eco-Point.</p>
-        <div class="login-admin-checks">
-          <span>✓ Antrean laporan pending</span>
-          <span>✓ Verifikasi bukti & GPS</span>
-          <span>✓ Keputusan dan alasan penolakan</span>
-          <span>✓ Pengelolaan reward dan kategori</span>
-        </div>
-        <a href="/admin/?tab=reports" class="btn primary large login-admin-cta">Masuk dengan kode akses →</a>
-        <p class="login-admin-disclaimer">Login admin sekarang cukup menggunakan <b>username bebas</b> dan <b>kode akses khusus</b>. Kode diverifikasi oleh server, tanpa mengirim OTP Gmail.</p>
-        <p class="login-admin-error" id="adminDenied" hidden>Akses ditolak. Masukkan kode akses admin yang benar untuk membuka panel.</p>
-      </div>
-      <a href="/" class="meta" style="display:inline-flex;align-items:center;gap:7px;margin-top:22px">← Kembali ke Eco-Point</a>
+      <p id="loginStatus" class="auth-feedback" role="status" aria-live="polite">Belum punya akun? Pilih Daftar akun di atas.</p>
+      <p class="auth-small-help" id="registerInfo" hidden>Daftar tanpa OTP atau verifikasi email. Gunakan email yang dapat kamu akses dan kata sandi yang berbeda dari akun kampusmu.</p>
+      <div class="auth-admin-link">Pengelola Eco-Point? <a href="/admin/">Masuk sebagai admin</a></div>
+      <a href="/" class="auth-return">← Kembali ke beranda</a>
     </div>
   </main>
 </div>
-
-<script src="/auth-bridge.js"></script>
+<style id="eco-auth-simple-style">
+  [hidden]{display:none!important}
+  .auth-simple-card{max-width:500px;width:100%;padding:30px 30px 34px}
+  .auth-simple-heading{margin:15px 0 23px}
+  .auth-simple-heading h1{color:#173e2b;font-size:clamp(27px,2.7vw,36px);letter-spacing:-.045em;line-height:1.12;margin:18px 0 8px}
+  .auth-simple-heading p{font-size:13px;color:#5a7360;line-height:1.6;margin:0}
+  .auth-simple-tabs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:5px;background:#edf2e9;border:1px solid #d6e3d2;border-radius:13px;margin:0 0 25px}
+  .auth-simple-tab{min-width:0;border:0;background:transparent;color:#45604b;font:inherit;font-weight:800;font-size:14px;min-height:43px;border-radius:9px;cursor:pointer;transition:background .15s,box-shadow .15s}
+  .auth-simple-tab.active{background:#fff;color:#16492e;box-shadow:0 2px 9px rgba(29,75,39,.13)}
+  .auth-simple-tab:focus-visible,.auth-password-toggle:focus-visible{outline:3px solid #83ba42;outline-offset:2px}
+  #passwordForm>.field{margin:0 0 16px}
+  #passwordForm>.field label{display:block;margin:0 0 7px;font-size:12px;font-weight:800;color:#254333}
+  #passwordForm input{display:block;width:100%;min-width:0;min-height:49px;padding:12px 13px;border:1.5px solid #cddbd0;border-radius:10px;background:#fff;color:#173e2b;font:inherit;font-size:14px;box-sizing:border-box}
+  #passwordForm input:focus{outline:3px solid #cfeab5;outline-offset:1px;border-color:#45864d}
+  .auth-password-row{display:flex;gap:8px;align-items:stretch}
+  .auth-password-row input{flex:1}
+  .auth-password-toggle{min-width:74px;padding:8px 11px;border:1.5px solid #cddbd0;border-radius:10px;background:#f6f9f1;font-size:12px;font-weight:800;color:#275338;cursor:pointer}
+  .auth-submit{display:block;width:100%;margin:9px 0 0;min-height:51px;font-weight:900;cursor:pointer}
+  .auth-submit:disabled{opacity:.68;cursor:wait}
+  .auth-feedback{font-size:12px;line-height:1.6;min-height:20px;color:#5d705f;margin:14px 0 0}
+  .auth-feedback.is-error{color:#a02e39;font-weight:700}
+  .auth-feedback.is-success{color:#207044;font-weight:700}
+  .auth-small-help{font-size:11px;color:#68806c;line-height:1.55;margin:7px 0 0}
+  .auth-admin-link{font-size:12px;color:#637968;border-top:1px solid #e3eae1;padding-top:20px;margin-top:24px;text-align:center}
+  .auth-admin-link a{color:#176d43;font-weight:800;text-decoration:underline;text-underline-offset:3px}
+  .auth-return{display:inline-block;font-size:12px;color:#496e55;margin-top:22px;text-decoration:none}
+  @media(max-width:750px){.auth-simple-card{max-width:490px;padding:25px 20px 28px}.auth-simple-heading{margin:10px 0 20px}.auth-simple-heading h1{font-size:29px}}
+  @media(max-width:360px){.auth-simple-card{padding:22px 15px}.auth-simple-tab{font-size:12px}.auth-password-toggle{min-width:65px}}
+  @media(prefers-reduced-motion:reduce){.auth-simple-tab{transition:none}}
+</style>
+<script src="/auth-bridge.js?v=23"></script>
 <script>
-const A=window.hatchable.auth;
-const emailForm=document.querySelector('#emailForm');
-const codeForm=document.querySelector('#codeForm');
-const emailInput=document.querySelector('#email');
-const codeInput=document.querySelector('#code');
-const emailSubmit=document.querySelector('#emailSubmit');
-const codeSubmit=document.querySelector('#codeSubmit');
-const status=document.querySelector('#loginStatus');
-const googleBtn=document.querySelector('#googleLogin');
-const passkeyMember=document.querySelector('#passkeyMember');
-const googleText=document.querySelector('#googleText');
-const passkeyOffer=document.querySelector('#passkeyOffer');
-const params=new URLSearchParams(location.search);
-const rawNext=params.get('next')||'/dashboard';
-const safeNext=rawNext.startsWith('/')&&!rawNext.startsWith('//')&&!rawNext.split('').some(c=>c.charCodeAt(0)<32||c.charCodeAt(0)===92||c.charCodeAt(0)===127);
-const next=safeNext?rawNext:'/dashboard';
-let hasPasskey=false;
-const roleMember=document.querySelector('#roleMember'),roleAdmin=document.querySelector('#roleAdmin');
-const memberLogin=document.querySelector('#memberLogin'),adminLogin=document.querySelector('#adminLogin');
-function selectRole(role){
- const admin=role==='admin';
- roleMember.classList.toggle('active',!admin);roleAdmin.classList.toggle('active',admin);
- roleMember.setAttribute('aria-pressed',String(!admin));
- roleAdmin.setAttribute('aria-pressed',String(admin));
- memberLogin.hidden=admin;adminLogin.hidden=!admin;
- const url=new URL(location.href);url.searchParams.set('role',admin?'admin':'member');
- history.replaceState(null,'',url.pathname+url.search);
-}
-roleMember.addEventListener('click',()=>selectRole('member'));
-roleAdmin.addEventListener('click',()=>selectRole('admin'));
-selectRole(params.get('role')==='admin'?'admin':'member');
-if(params.get('denied')==='1')document.querySelector('#adminDenied').hidden=false;
-
-function setStatus(message,error=false){
-  status.textContent=message;
-  status.style.color=error?'#a84040':'';
-}
-
-async function finishLogin(user){
-  if(!user) return;
-  location.href=next;
-}
-
-(async()=>{
-  try{
-    const session=await A.getSession();
-    if(session?.user && params.get('role')!=='admin'){ location.href=next; return; }
-
-    if(A.supportsPasskeys()){
-      try{
-        const controller=new AbortController();
-        A.attachPasskeyAutofill(emailInput,{signal:controller.signal}).then(done=>{
-          if(done?.user) finishLogin(done.user);
-        }).catch(()=>{});
-      }catch{}
-    }
-
-    // Hatchable shows Google only on a configured custom domain.
-    // Keep the entry point available on hatchable.site so the platform
-    // can redirect to the custom domain or show its setup information.
-    const providers=await A.providers();
-    const googleReady=providers.includes('google');
-    googleBtn.disabled=true;
-    googleText.textContent='Google Login belum tersedia';
-    setStatus(googleReady
-      ? 'Google Login siap digunakan.'
-      : 'Google Login menunggu aktivasi domain dan OAuth oleh pemilik proyek. Email dan passkey tetap tersedia.');
-  }catch(e){
-    googleBtn.disabled=true;
-    googleText.textContent='Google Login belum tersedia';
-    setStatus('Login email dan passkey tetap tersedia. Google memerlukan konfigurasi pemilik proyek.',false);
+(function(){
+  'use strict';
+  const byId=id=>document.getElementById(id);
+  const query=new URLSearchParams(location.search);
+  if(query.get('role')==='admin'){location.replace('/admin/');return;}
+  function destination(value){
+    if(!value||!value.startsWith('/')||value.startsWith('//')||value.includes('\\'))return '/dashboard';
+    try{
+      const target=new URL(value,location.origin);
+      if(target.origin!==location.origin||target.pathname==='/login'||target.pathname.startsWith('/admin'))return '/dashboard';
+      return target.pathname+target.search+target.hash;
+    }catch{return '/dashboard';}
   }
+  const next=destination(query.get('next')||'/dashboard');
+  const form=byId('passwordForm'),email=byId('memberEmail'),password=byId('memberPassword');
+  const name=byId('memberName'),nameField=byId('nameField'),submit=byId('passwordSubmit');
+  const status=byId('loginStatus'),loginTab=byId('modeLogin'),registerTab=byId('modeRegister');
+  let mode='login',busy=false;
+  function feedback(message,kind){
+    status.textContent=message;
+    status.classList.toggle('is-error',kind==='error');
+    status.classList.toggle('is-success',kind==='success');
+  }
+  function selectMode(selected){
+    if(busy)return;
+    mode=selected==='register'?'register':'login';
+    const register=mode==='register';
+    nameField.hidden=!register;
+    name.disabled=!register;
+    name.required=register;
+    password.autocomplete=register?'new-password':'current-password';
+    loginTab.classList.toggle('active',!register);
+    registerTab.classList.toggle('active',register);
+    loginTab.setAttribute('aria-pressed',String(!register));
+    registerTab.setAttribute('aria-pressed',String(register));
+    byId('loginTitle').textContent=register?'Daftar Eco-Point':'Masuk ke Eco-Point';
+    byId('loginDescription').textContent=register?'Buat akun dengan nama, email, dan kata sandi.':'Masuk untuk melihat poin dan melaporkan kegiatan pilah sampah.';
+    submit.textContent=register?'Buat akun dan masuk':'Masuk sekarang';
+    byId('registerInfo').hidden=!register;
+    feedback(register?'Hanya tiga data, tanpa OTP.':'Belum punya akun? Pilih Daftar akun di atas.','info');
+    password.value='';
+  }
+  loginTab.addEventListener('click',()=>selectMode('login'));
+  registerTab.addEventListener('click',()=>selectMode('register'));
+  byId('showPassword').addEventListener('click',()=>{
+    const visible=password.type==='text';
+    password.type=visible?'password':'text';
+    byId('showPassword').textContent=visible?'Lihat':'Sembunyikan';
+    byId('showPassword').setAttribute('aria-pressed',String(!visible));
+  });
+  for(const input of [email,password,name]){
+    input.addEventListener('input',()=>{if(status.classList.contains('is-error'))feedback('Periksa kembali data kamu.','info')});
+  }
+  async function post(path,data){
+    let response;
+    try{
+      response=await fetch(path,{method:'POST',credentials:'same-origin',cache:'no-store',
+        headers:{'Content-Type':'application/json'},body:JSON.stringify(data),signal:AbortSignal.timeout(20000)});
+    }catch(err){
+      throw new Error(err&&err.name==='TimeoutError'?'Server terlalu lama merespons. Coba lagi.':'Tidak dapat terhubung ke server. Periksa internet lalu coba lagi.');
+    }
+    const body=await response.json().catch(()=>({}));
+    if(!response.ok){
+      let message=body.error||body.message||'Tidak dapat memproses permintaan.';
+      if(response.status===503)message='Server sedang bermasalah. Silakan coba beberapa saat lagi.';
+      if(response.status===429)message=body.error||'Terlalu banyak percobaan. Coba lagi beberapa menit.';
+      const error=new Error(message);error.status=response.status;throw error;
+    }
+    return body;
+  }
+  form.addEventListener('submit',async event=>{
+    event.preventDefault();
+    if(busy||!form.reportValidity())return;
+    busy=true;submit.disabled=true;
+    const registering=mode==='register';
+    submit.textContent=registering?'Membuat akun…':'Sedang masuk…';
+    feedback('Menghubungkan akun…','info');
+    try{
+      const result=await post('/api/auth/password/'+(registering?'register':'login'),
+        {email:email.value.trim().toLowerCase(),password:password.value,name:name.value.trim()});
+      if(!result.user)throw new Error('Sesi belum berhasil dibuat.');
+      feedback(registering?'Akun dibuat! Membuka dashboard…':'Berhasil masuk! Membuka dashboard…','success');
+      location.replace(next);
+    }catch(err){
+      feedback(err.message||'Gagal masuk. Coba lagi.','error');
+      if(err.status===409 && registering){loginTab.focus();}
+      busy=false;submit.disabled=false;
+      submit.textContent=registering?'Buat akun dan masuk':'Masuk sekarang';
+    }
+  });
+  selectMode(query.get('mode')==='register'?'register':'login');
+  fetch('/api/auth/session',{credentials:'same-origin',cache:'no-store'})
+    .then(r=>r.ok?r.json():null)
+    .then(data=>{if(data&&data.user)location.replace(next)})
+    .catch(()=>{});
 })();
-
-emailForm.addEventListener('submit',async e=>{
-  e.preventDefault();
-  const email=emailInput.value.trim();
-  if(!email) return;
-
-  emailSubmit.disabled=true;
-  emailSubmit.textContent='Mengirim kode…';
-  setStatus('Memproses email Anda…');
-
-  try{
-    const result=await A.startLogin({email});
-    hasPasskey=!!result.has_passkey;
-
-    if(hasPasskey && A.supportsPasskeys()){
-      try{
-        setStatus('Passkey ditemukan. Membuka verifikasi perangkat…');
-        const done=await A.signInWithPasskey({email});
-        if(done?.user){ await finishLogin(done.user); return; }
-      }catch{
-        setStatus('Passkey dilewati. Masukkan kode yang dikirim ke email Anda.');
-      }
-    }
-
-    emailForm.style.display='none';
-    codeForm.style.display='block';
-    codeInput.focus();
-    setStatus('Kode 6 digit sudah dikirim. Periksa inbox atau folder spam.');
-  }catch(err){
-    const extra=err?.status===429 && err?.retryAfter ? ' Coba lagi dalam '+err.retryAfter+' detik.' : '';
-    setStatus((err?.message||'Gagal mengirim kode login.')+extra,true);
-  }finally{
-    emailSubmit.disabled=false;
-    emailSubmit.textContent='Kirim kode email (cadangan)';
-  }
-});
-
-codeForm.addEventListener('submit',async e=>{
-  e.preventDefault();
-  const email=emailInput.value.trim();
-  const code=codeInput.value.trim();
-  codeSubmit.disabled=true;
-  codeSubmit.textContent='Memverifikasi…';
-  setStatus('Memverifikasi kode…');
-
-  try{
-    const done=await A.verifyCode({email,code});
-    if(!done?.user) throw new Error('Sesi login tidak terbentuk.');
-
-    const shouldOffer=!hasPasskey
-      && A.supportsPasskeys()
-      && localStorage.getItem('ecopoint_passkey_declined')!=='1';
-
-    if(shouldOffer){
-      passkeyOffer.style.display='block';
-      codeForm.style.display='none';
-      setStatus('Login berhasil. Anda bisa menambahkan passkey atau lanjut ke dashboard.');
-      window.__ecoLoggedInUser=done.user;
-    }else{
-      await finishLogin(done.user);
-    }
-  }catch(err){
-    setStatus(err?.message||'Kode tidak valid atau sudah kedaluwarsa.',true);
-    codeSubmit.disabled=false;
-    codeSubmit.textContent='Verifikasi & masuk';
-  }
-});
-
-document.querySelector('#backBtn').addEventListener('click',()=>{
-  codeForm.style.display='none';
-  emailForm.style.display='block';
-  codeInput.value='';
-  setStatus('Masukkan email untuk menerima kode login baru.');
-});
-
-document.querySelector('#addPasskey').addEventListener('click',async()=>{
-  try{
-    const saved=await A.registerPasskey({name:'Eco-Point device'});
-    if(!saved) localStorage.setItem('ecopoint_passkey_declined','1');
-  }catch{
-    localStorage.setItem('ecopoint_passkey_declined','1');
-  }
-  location.href=next;
-});
-
-document.querySelector('#skipPasskey').addEventListener('click',()=>{
-  localStorage.setItem('ecopoint_passkey_declined','1');
-  location.href=next;
-});
-
-passkeyMember.addEventListener('click',async()=>{
- const email=emailInput.value.trim();
- if(!email){setStatus('Masukkan email akun terlebih dahulu untuk menggunakan passkey.',true);emailInput.focus();return;}
- passkeyMember.disabled=true;
- try{
-  if(!A.supportsPasskeys())throw new Error('Perangkat ini belum mendukung passkey. Gunakan Google atau verifikasi email.');
-  const done=await A.signInWithPasskey({email});
-  if(done?.user){await finishLogin(done.user);return;}
-  throw new Error('Passkey tidak ditemukan. Gunakan Google atau verifikasi email terlebih dahulu.');
- }catch(e){setStatus(e.message||'Passkey tidak tersedia untuk akun ini.',true)}finally{passkeyMember.disabled=false}
-});
-
-googleBtn.addEventListener('click',()=>{
-  googleBtn.disabled=true;
-  googleText.textContent='Membuka Google…';
-  // OAuth, state/nonce, and callback are handled by Hatchable.
-  location.assign('/api/auth/google/start?next='+encodeURIComponent(next));
-});
 </script>
 </body>
 </html>

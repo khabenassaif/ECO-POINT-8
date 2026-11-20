@@ -16,6 +16,7 @@ export default async function(req,res){
   ]);
   return res.json({points:balance,cost:COST,available:v.rows.filter(x=>x.status==="available").length,vouchers:v.rows});
  }
+ return res.status(410).json({error:"Voucher Spin Wheel telah ditutup. Hadiah kini diberikan kepada Top 3 poin terbanyak. Voucher dan riwayat lama tetap disimpan."});
  const key=String(req.body?.idempotency_key||"").trim().slice(0,120);
  if(!key) return res.status(400).json({error:"Kunci transaksi wajib diisi."});
  const prior=(await db.query("SELECT id,status,created_at FROM spin_vouchers WHERE user_id=$1 AND purchase_key=$2",[uid,key])).rows[0];

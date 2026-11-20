@@ -12,6 +12,30 @@ assert.equal(catalog.status,200,'Public catalog should load');
 assert.ok(catalog.data.categories.length>=5,'Default waste categories must exist');
 assert.ok(catalog.data.rewards.length>=8,'Default reward catalog must exist');
 
+// Member self-registration, cookie persistence, wrong password, and sign-in regression tests.
+const address='ci-'+crypto.randomUUID()+'@example.org';
+const badEmail=await request('/api/auth/password/register',{method:'POST',body:{name:'CI Member',email:'invalid@@example.org',password:'CiPassword123!'}});
+assert.equal(badEmail.status,400,'Malformed email must fail');
+const registered=await request('/api/auth/password/register',{method:'POST',body:{name:'CI Member',email:address,password:'CiPassword123!'}});
+assert.equal(registered.status,201,JSON.stringify(registered.data));
+assert.equal(registered.data.user.email,address);
+assert.ok(registered.cookie?.startsWith('eco_member_session='),'Registration must create a session');
+const memberSession=await request('/api/auth/session',{cookie:registered.cookie});
+assert.equal(memberSession.status,200);
+assert.equal(memberSession.data.user.email,address,'Session must resolve registered member');
+assert.equal((await request('/api/student/dashboard',{cookie:registered.cookie})).status,200,'Fresh member must access dashboard');
+const badLogin=await request('/api/auth/password/login',{method:'POST',body:{email:address,password:'DefinitelyWrong'}});
+assert.equal(badLogin.status,401,'Wrong password must not open account');
+const existing=await request('/api/auth/password/register',{method:'POST',body:{name:'CI Member',email:address,password:'CiPassword123!'}});
+assert.equal(existing.status,409,'Existing email cannot overwrite a registered password');
+const logout=await request('/api/auth/logout',{method:'POST',cookie:registered.cookie,body:{}});
+assert.equal(logout.status,200);
+assert.equal((await request('/api/auth/session',{cookie:registered.cookie})).data.user,null,'Logged-out session must be revoked');
+const memberLogin=await request('/api/auth/password/login',{method:'POST',body:{email:address,password:'CiPassword123!'}});
+assert.equal(memberLogin.status,200,JSON.stringify(memberLogin.data));
+assert.ok(memberLogin.cookie?.startsWith('eco_member_session='),'Password login must create a session');
+assert.equal((await request('/api/auth/session',{cookie:memberLogin.cookie})).data.user.email,address);
+
 const anonymousAdmin=await request('/api/admin/overview');
 assert.equal(anonymousAdmin.status,401,'Admin dashboard cannot be public');
 assert.equal((await request('/api/student/dashboard')).status,401,'Student API cannot be anonymous');
@@ -44,5 +68,5 @@ assert.equal(media.status,200,'Signed media must be readable');
 assert.equal(await media.text(),'demo-test');
 const forbidden=await fetch(base+signed.replace('sig=','sig=bad'));
 assert.equal(forbidden.status,403,'Tampered media signature must be rejected');
-console.log('Render/Postgres smoke test PASSED: catalog, access gates, admin auth, atomic report review, signed media.');
+console.log('ECO-POINT smoke test PASSED: register/login/logout, catalog, access gates, admin auth, atomic report review, signed media.');
 process.exit(0);

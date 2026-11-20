@@ -40,7 +40,7 @@ function logo(){return `<span class="brandmark">${icon('leaf')}</span><span>Eco-
 function publicHeader(active=''){
  return `<header class="topbar"><a href="/" class="brand">${logo()}</a><a href="/about" class="green-campus-header" aria-label="Green Campus – tentang program"><img src="/images/green-campus-logo.svg" alt="Green Campus" width="142" height="57"></a><nav class="topnav" id="topnav"><a class="${active==='about'?'active':''}" href="/about">Tentang</a><a class="${active==='how'?'active':''}" href="/how-it-works">Cara Kerja</a><a class="${active==='guide'?'active':''}" href="/waste-guide">Panduan Sampah</a><a class="${active==='locations'?'active':''}" href="/locations">Lokasi</a><a class="btn primary" href="/login">Masuk</a></nav><button class="menu-toggle" id="menuToggle" aria-label="Buka menu">${icon('menu')}</button></header>`;
 }
-function wirePublicNav(){const b=document.querySelector('#menuToggle'),n=document.querySelector('#topnav');if(b&&n)b.onclick=()=>n.classList.toggle('open')}
+function wirePublicNav(){const b=document.querySelector('#menuToggle'),n=document.querySelector('#topnav');if(!b||!n)return;b.setAttribute('aria-controls','topnav');b.setAttribute('aria-expanded','false');const close=()=>{n.classList.remove('open');b.setAttribute('aria-expanded','false');b.setAttribute('aria-label','Buka menu')};b.onclick=()=>{const isOpen=n.classList.toggle('open');b.setAttribute('aria-expanded',String(isOpen));b.setAttribute('aria-label',isOpen?'Tutup menu':'Buka menu')};document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});document.addEventListener('click',e=>{if(!b.contains(e.target)&&!n.contains(e.target))close()});n.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));window.addEventListener('resize',()=>{if(innerWidth>820)close()})}
 
 function initImmersive(){
  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
@@ -71,18 +71,47 @@ function initImmersive(){
  }else revealers.forEach(el=>el.classList.add('immersive-visible'));
 }
 
+
+function mobilePublicHome(){
+ return `<div class="mobile-public-home">
+   <header class="m-appbar"><a href="/" class="m-brand"><span class="m-brand-icon">${icon('leaf','sm')}</span><span>Eco-Point<small>GREEN CAMPUS</small></span></a><a class="m-header-login" href="/login">Masuk ${icon('arrow','sm')}</a></header>
+   <nav class="m-chips" aria-label="Kategori beranda"><a class="selected" href="#m-home">Untuk kamu</a><a href="#m-rewards">Hadiah</a><a href="#m-steps">Cara kerja</a><a href="/waste-guide">Panduan sampah</a></nav>
+   <main class="m-feed">
+    <section id="m-home" class="m-hero">
+      <div class="m-hero-copy"><div class="m-eyebrow">🌱 GERAKAN KAMPUS HIJAU</div><h1>Pilah sampah,<br><em>kumpulkan poin!</em></h1><p>Mulai aksi kecil untuk kampus lebih hijau. Laporkan pemilahan sampahmu dan dapatkan Eco-Points.</p><a class="m-hero-cta" href="/login">Mulai kumpulkan poin ${icon('arrow','sm')}</a></div>
+      <div class="m-hero-art"><img src="/images/eco-premium.svg" alt="Ilustrasi aksi pemilahan sampah di kampus" width="640" height="640" loading="eager" decoding="async"></div>
+    </section>
+    <section class="m-shortcuts" aria-label="Aksi cepat">
+      <a href="/login?next=%2Freport"><span class="m-short-icon mint">${icon('upload')}</span><b>Lapor</b></a>
+      <a href="/login?next=%2Fredemptions"><span class="m-short-icon peach">${icon('gift')}</span><b>Top 3 Hadiah</b></a>
+      <a href="/locations"><span class="m-short-icon blue">${icon('pin')}</span><b>Lokasi</b></a>
+      <a href="/waste-guide"><span class="m-short-icon yellow">${icon('recycle')}</span><b>Panduan</b></a>
+    </section>
+    <div class="m-points-strip"><div><strong>+5–10</strong><span>poin per laporan disetujui</span></div><span class="m-strip-divider"></span><div><strong>TOP 3</strong><span>poin terbanyak menang</span></div></div>
+    <section class="m-section" id="m-steps">
+      <div class="m-section-head"><div><span class="m-section-label">MUDAH BANGET</span><h2>Cara dapat poin</h2></div><a href="/how-it-works">Detail</a></div>
+      <div class="m-steps-list">
+        <div><span class="m-step-mark">1</span><div><b>Pilah & foto sampah</b><small>Dokumentasikan aktivitasmu.</small></div>${icon('camera','sm')}</div>
+        <div><span class="m-step-mark">2</span><div><b>Kirim laporan</b><small>Isi kategori, bukti, dan GPS.</small></div>${icon('upload','sm')}</div>
+        <div><span class="m-step-mark">3</span><div><b>Admin menyetujui</b><small>Poin langsung ditambahkan.</small></div>${icon('check','sm')}</div>
+        <div><span class="m-step-mark">4</span><div><b>Menang dengan Top 3 poin</b><small>Naik peringkat dan raih Top 3.</small></div>${icon('gift','sm')}</div>
+      </div>
+    </section>
+    <section class="m-impact-tile"><span>KENAPA ECO-POINT?</span><div><strong>98,1%</strong><p>responden survei awal setuju insentif digital dapat mendorong pemilahan sampah.</p></div></section>
+    <section class="m-section m-contest-section" id="m-rewards" aria-label="Kompetisi Top 3 Point Challenge"><div id="ecoContestMobile" aria-live="polite"></div></section>
+   </main>
+   <nav class="m-public-bottom" aria-label="Navigasi Eco-Point"><a href="/" class="active">${icon('home')}<span>Beranda</span></a><a href="/waste-guide">${icon('recycle')}<span>Panduan</span></a><a class="m-bottom-main" href="/login?next=%2Freport"><span class="m-plus">${icon('plus')}</span><span>Lapor</span></a><a href="/locations">${icon('pin')}<span>Lokasi</span></a><a href="/login">${icon('user')}<span>Akun</span></a></nav>
+  </div>`;
+}
 async function landing(){
- root.innerHTML=publicHeader()+`<main class="taste-home">
+ root.innerHTML=mobilePublicHome()+publicHeader()+`<main class="taste-home">
   <section class="taste-hero">
    <div class="taste-hero-inner">
     <div class="taste-hero-copy">
      <span class="taste-tag"><span class="taste-tag-mark"></span> Eco-Point • Telkom University</span>
      <h1>Pilah sampah.<br><span>Kumpulkan poin.</span></h1>
-     <p>Aksi kecil untuk kampus yang lebih hijau. Dokumentasikan pemilahan sampah, dapatkan Eco-Points, lalu tukarkan dengan reward.</p>
-     <div class="taste-hero-cta">
-      <a href="/login" class="taste-btn taste-btn-lime">Mulai beraksi ${icon('arrow','sm')}</a>
-      <a href="#alur" class="taste-btn taste-btn-outline">Lihat cara kerja</a>
-     </div>
+     <p>Aksi kecil untuk kampus yang lebih hijau. Dokumentasikan pemilahan sampah, dapatkan Eco-Points, dan ikuti kompetisi Top 3 berhadiah JETE.</p>
+     <div class="taste-hero-cta"><a href="/login" class="taste-btn taste-btn-lime">Mulai beraksi ${icon('arrow','sm')}</a><a href="#alur" class="taste-btn taste-btn-outline">Lihat cara kerja</a></div>
     </div>
     <div class="taste-hero-art" data-tilt data-tilt-strength="3" aria-label="Ilustrasi kegiatan pemilahan sampah">
      <div class="taste-art-ring taste-art-ring-one" aria-hidden="true"></div>
@@ -90,18 +119,17 @@ async function landing(){
      <div class="taste-art-platform" aria-hidden="true"></div>
      <img class="taste-hero-illustration" src="/images/eco-premium.svg" alt="Ilustrasi mahasiswa memilah sampah untuk Eco-Point">
      <div class="taste-art-label taste-label-top">${icon('leaf','sm')} Aksi ramah lingkungan</div>
-     <div class="taste-art-label taste-label-bottom">${icon('gift','sm')} Reward dari Eco-Points</div>
+     <div class="taste-art-label taste-label-bottom">${icon('gift','sm')} Top 3 berhadiah JETE</div>
     </div>
    </div>
   </section>
-
   <section class="taste-section taste-how" id="alur">
    <div class="taste-section-intro"><span class="taste-kicker">Cara kerja</span><h2>Mulai dari satu aksi sederhana.</h2><p>Empat langkah mudah. Tidak perlu proses yang rumit.</p></div>
    <div class="taste-steps">
     <article class="taste-step"><div class="taste-step-top"><span>01</span><span class="taste-step-icon">${icon('recycle')}</span></div><h3>Pilah sampah</h3><p>Pisahkan sampah sesuai kategori yang tersedia.</p></article>
     <article class="taste-step"><div class="taste-step-top"><span>02</span><span class="taste-step-icon">${icon('upload')}</span></div><h3>Foto & laporkan</h3><p>Unggah bukti, deskripsi, dan lokasi aktivitas.</p></article>
     <article class="taste-step"><div class="taste-step-top"><span>03</span><span class="taste-step-icon">${icon('check')}</span></div><h3>Tunggu verifikasi</h3><p>Administrator meninjau laporan sebelum poin diberikan.</p></article>
-    <article class="taste-step"><div class="taste-step-top"><span>04</span><span class="taste-step-icon">${icon('gift')}</span></div><h3>Tukar reward</h3><p>Gunakan poin dari laporan yang telah disetujui.</p></article>
+    <article class="taste-step"><div class="taste-step-top"><span>04</span><span class="taste-step-icon">${icon('gift')}</span></div><h3>Naik peringkat</h3><p>Top 3 poin terverifikasi memenangkan hadiah JETE.</p></article>
    </div>
   </section>
 
@@ -112,20 +140,22 @@ async function landing(){
    </div>
   </section>
 
-  <section class="taste-section taste-rewards" id="reward">
-   <div class="taste-rewards-heading"><div><span class="taste-kicker">Reward Eco-Point</span><h2>Setiap aksi punya nilai.</h2><p>Pilih reward dari katalog. Penukaran dilakukan menggunakan poin yang sudah diverifikasi.</p></div><a href="/login" class="taste-simple-link">Masuk ke katalog ${icon('arrow','sm')}</a></div>
-   <div id="landingRewards" class="taste-reward-grid"><div class="taste-loader">Memuat katalog reward…</div></div>
-  </section>
+  <section class="eco-competition-bottom" id="kompetisi" aria-label="Kompetisi Top 3 Point Challenge"><div id="ecoContestDesktop" aria-live="polite"></div></section>
  </main>${footer()}`;
  wirePublicNav();
  try{
-  const d=await api('/api/public/catalog');
-  document.querySelector('#landingRewards').innerHTML=d.rewards.length?d.rewards.slice(0,4).map(productPreview).join(''):'<div class="taste-empty">Reward belum tersedia saat ini.</div>';
- }catch(e){document.querySelector('#landingRewards').innerHTML='<div class="taste-empty">Katalog belum dapat dimuat. Silakan coba lagi nanti.</div>'}
+  const e=await api('/api/public/event');
+  window.EcoContest.landing(e);
+  window.EcoContest.startTimer();
+ }catch(error){
+  for(const id of ['ecoContestDesktop','ecoContestMobile']){
+   const el=document.getElementById(id);if(el)el.innerHTML='<p class="eco-empty-rank">Informasi kompetisi belum dapat dimuat. Coba muat ulang.</p>';
+  }
+ }
  initImmersive();
 }
-function productPreview(r){return `<article class="product-card immersive-product" data-tilt data-tilt-strength="4"><div class="product-image">${r.category==='spin_wheel'?spinPhoto(r.name):r.has_image?`<img src="/api/public/reward-image?id=${encodeURIComponent(r.id)}" alt="${esc(r.name)}">`:icon('gift','lg')}</div><div class="product-body"><h3>${esc(r.name)}</h3><p>${esc(r.description||'Hadiah Eco-Point')}</p><div class="product-meta"><span class="points">${r.category==='spin_wheel'?'Hadiah Spin Wheel':r.point_cost+' poin'}</span><span class="stock">Stok ${r.stock}</span></div></div></article>`}
-function footer(){return `<footer class="foot"><div class="footer-grid"><div><a href="/" class="brand">${logo()}</a><div class="green-campus-footer"><img src="/images/green-campus-logo.svg" width="180" height="72" loading="lazy" alt="Logo Green Campus"></div><p style="max-width:420px;margin-top:14px">Platform kampus untuk mencatat aksi pemilahan sampah, memperoleh Eco-Points, dan menukar reward.</p></div><div><h4>Informasi</h4><div class="footer-links"><a href="/about">Tentang</a><a href="/how-it-works">Cara Kerja</a><a href="/waste-guide">Panduan Sampah</a><a href="/locations">Lokasi</a></div></div><div><h4>Akses</h4><div class="footer-links"><a href="/login">Masuk Mahasiswa</a><a href="/admin/">Administrator</a></div></div></div><div class="copyright">© ${new Date().getFullYear()} Eco-Point · Campus Sustainability Platform</div></footer>`}
+function productPreview(r){return r.category==='contest'?window.EcoContest.prizes({prizes:[{place:r.name==='Mouse JETE MO106'?1:r.name==='Earphone JETE Eazy 3'?2:3,name:r.name}]},'rail'):`<article class="product-card"><div class="product-body"><h3>${esc(r.name)}</h3></div></article>`}
+function footer(){return `<footer class="foot"><div class="footer-grid"><div><a href="/" class="brand">${logo()}</a><div class="green-campus-footer"><img src="/images/green-campus-logo.svg" width="180" height="72" loading="lazy" alt="Logo Green Campus"></div><p style="max-width:420px;margin-top:14px">Platform kampus untuk aksi pemilahan sampah, Eco-Points terverifikasi, dan kompetisi Top 3 hadiah JETE.</p></div><div><h4>Informasi</h4><div class="footer-links"><a href="/about">Tentang</a><a href="/how-it-works">Cara Kerja</a><a href="/waste-guide">Panduan Sampah</a><a href="/locations">Lokasi</a></div></div><div><h4>Akses</h4><div class="footer-links"><a href="/login">Masuk Mahasiswa</a><a href="/admin/">Administrator</a></div></div></div><div class="copyright">© ${new Date().getFullYear()} Eco-Point · Campus Sustainability Platform</div></footer>`}
 
 async function infoPage(kind){
  const config={
@@ -136,7 +166,7 @@ async function infoPage(kind){
  }[kind];
  root.innerHTML=publicHeader(config.active)+`<main><section class="info-hero"><div class="eyebrow">${config.eyebrow}</div><h1 class="section-title" style="max-width:850px">${config.title}</h1><p class="section-lead">${config.lead}</p></section><section class="section alt" style="padding-top:38px"><div id="infoContent" class="loading">Memuat…</div></section></main>${footer()}`;wirePublicNav();
  const el=document.querySelector('#infoContent');
- if(kind==='/about'){el.className='info-grid';el.innerHTML=`<article class="info-card"><div class="category-icon">${icon('recycle')}</div><h3>Structured reporting</h3><p>Laporan menggabungkan kategori, foto, GPS, waktu, deskripsi, dan hasil pemeriksaan otomatis.</p></article><article class="info-card"><div class="category-icon">${icon('check')}</div><h3>Human verification</h3><p>Keputusan final tetap berada pada administrator dan tercatat sebagai audit trail.</p></article><article class="info-card"><div class="category-icon">${icon('gift')}</div><h3>Meaningful rewards</h3><p>Eco-Points dapat digunakan pada merchandise yang stok dan nilainya dikelola administrator.</p></article>`;return}
+ if(kind==='/about'){el.className='info-grid';el.innerHTML=`<article class="info-card"><div class="category-icon">${icon('recycle')}</div><h3>Structured reporting</h3><p>Laporan menggabungkan kategori, foto, GPS, waktu, deskripsi, dan hasil pemeriksaan otomatis.</p></article><article class="info-card"><div class="category-icon">${icon('check')}</div><h3>Human verification</h3><p>Keputusan final tetap berada pada administrator dan tercatat sebagai audit trail.</p></article><article class="info-card"><div class="category-icon">${icon('gift')}</div><h3>Meaningful rewards</h3><p>Eco-Points dari laporan yang disetujui menentukan peringkat Top 3 selama periode kompetisi.</p></article>`;return}
  if(kind==='/how-it-works'){el.className='steps';el.innerHTML=`<article class="step"><span class="step-number">01</span><h3>Sign in</h3><p>Gunakan akun institusi yang telah diizinkan.</p></article><article class="step"><span class="step-number">02</span><h3>Report activity</h3><p>Tambahkan kategori, foto, deskripsi, dan GPS.</p></article><article class="step"><span class="step-number">03</span><h3>Admin verifies</h3><p>Admin meninjau bukti serta hasil automated checks.</p></article><article class="step"><span class="step-number">04</span><h3>Earn & redeem</h3><p>Poin masuk setelah approval dan dapat ditukar dengan reward.</p></article>`;return}
  try{const d=await api('/api/public/catalog');if(kind==='/waste-guide'){el.className='category-grid';el.innerHTML=d.categories.length?d.categories.map((c,i)=>`<article class="category-card"><div class="category-icon">${icon(['recycle','file','leaf','spark','more'][i%5])}</div><h3>${esc(c.name)}</h3><p>${esc(c.description||'Ikuti kategori ini saat melakukan pemilahan dan pelaporan.')}</p></article>`).join(''):'<div class="empty" style="grid-column:1/-1">Kategori belum tersedia.</div>'}else{el.className='info-grid';el.innerHTML=d.locations.length?d.locations.map(x=>`<article class="info-card"><div class="category-icon">${icon('pin')}</div><h3>${esc(x.name)}</h3><p>${esc(x.description||'Lokasi pengelolaan sampah terdaftar.')}</p><a class="btn ghost" style="margin-top:16px" target="_blank" rel="noopener" href="https://www.openstreetmap.org/?mlat=${x.latitude}&mlon=${x.longitude}#map=18/${x.latitude}/${x.longitude}">Open Map ${icon('arrow','sm')}</a></article>`).join(''):'<div class="empty" style="grid-column:1/-1">Belum ada lokasi aktif.</div>'}}catch(e){el.className='error';el.textContent=e.message}
 }
@@ -145,13 +175,19 @@ const navItems=[
  ['dashboard','Beranda','home','/dashboard'],
  ['report','Buat Laporan','plus','/report'],
  ['reports','Laporan Saya','file','/reports'],
- ['rewards','Spin Wheel','gift','/redemptions'],
- ['redemptions','Hadiah Saya','clock','/riwayat'],
+ ['rewards','Event Top 3','gift','/redemptions'],
+ ['redemptions','Riwayat Lama','clock','/riwayat'],
  ['community','Peringkat','trophy','/leaderboard'],
  ['profile','Profil','user','/profile']
 ];
 function appShell(active,body,me,opts={}){
- root.innerHTML=`<div class="app-layout"><aside class="sidebar"><a href="/dashboard" class="brand">${logo()}</a><div class="green-campus-sidebar"><img src="/images/green-campus-logo.svg" width="150" height="60" alt="Logo Green Campus"></div><div class="side-user"><span class="avatar">${esc(initials(me?.full_name))}</span><span><b>${esc(me?.full_name||'Mahasiswa')}</b><span>${esc(me?.email||'')}</span></span></div><nav class="side-nav">${navItems.map(([k,l,i,p])=>`<button data-href="${p}" class="${active===k?'active':''}">${icon(i,'sm')}${l}</button>`).join('')}</nav><div class="side-bottom">Eco-Point · Student Workspace<br>Campus sustainability platform</div></aside><div class="app-main-wrap"><header class="dash-topbar"><div><div class="breadcrumb">Eco-Point / ${esc(navItems.find(x=>x[0]===active)?.[1]||'Workspace')}</div></div><div class="dash-actions"><button class="icon-btn" title="Notifications" onclick="location.href='/leaderboard'">${icon('bell','sm')}${opts.unread?'<span style="position:absolute;width:7px;height:7px;border-radius:50%;background:var(--danger);margin:-20px 0 0 14px"></span>':''}</button><span class="avatar" style="width:36px;height:36px;font-size:11px">${esc(initials(me?.full_name))}</span><button class="btn ghost" id="signOut">${icon('logout','sm')} Keluar</button></div></header><main class="app-main">${body}</main></div></div><nav class="bottom-nav">${navItems.slice(0,4).map(([k,l,i,p])=>`<button data-href="${p}" class="${active===k?'active':''}">${icon(i)}<span>${l.split(' ')[0]}</span></button>`).join('')}<button id="moreNav">${icon('more')}<span>Lainnya</span></button></nav><div id="mobileMore" class="mobile-more"><button data-href="/riwayat">${icon('clock','sm')} Hadiah Saya</button><button data-href="/leaderboard">${icon('trophy','sm')} Peringkat</button><button data-href="/profile">${icon('user','sm')} Profil</button></div>`;
+ root.innerHTML=`<div class="app-layout"><aside class="sidebar"><a href="/dashboard" class="brand">${logo()}</a><div class="green-campus-sidebar"><img src="/images/green-campus-logo.svg" width="150" height="60" alt="Logo Green Campus"></div><div class="side-user"><span class="avatar">${esc(initials(me?.full_name))}</span><span><b>${esc(me?.full_name||'Mahasiswa')}</b><span>${esc(me?.email||'')}</span></span></div><nav class="side-nav">${navItems.map(([k,l,i,p])=>`<button data-href="${p}" class="${active===k?'active':''}">${icon(i,'sm')}${l}</button>`).join('')}</nav><div class="side-bottom">Eco-Point · Student Workspace<br>Campus sustainability platform</div></aside><div class="app-main-wrap"><header class="m-member-appbar"><a class="m-brand" href="/dashboard"><span class="m-brand-icon">${icon('leaf','sm')}</span><span>Eco-Point<small>AREA MEMBER</small></span></a><a class="m-member-profile" href="/profile" aria-label="Buka profil">${esc(initials(me?.full_name))}</a></header><header class="dash-topbar"><div><div class="breadcrumb">Eco-Point / ${esc(navItems.find(x=>x[0]===active)?.[1]||'Workspace')}</div></div><div class="dash-actions"><button class="icon-btn" title="Notifications" onclick="location.href='/leaderboard'">${icon('bell','sm')}${opts.unread?'<span style="position:absolute;width:7px;height:7px;border-radius:50%;background:var(--danger);margin:-20px 0 0 14px"></span>':''}</button><span class="avatar" style="width:36px;height:36px;font-size:11px">${esc(initials(me?.full_name))}</span><button class="btn ghost" id="signOut">${icon('logout','sm')} Keluar</button></div></header><main class="app-main">${body}</main></div></div><nav class="bottom-nav" aria-label="Navigasi member">${[
+ ['dashboard','Beranda','home','/dashboard'],
+ ['reports','Laporan','file','/reports'],
+ ['report','Lapor','plus','/report'],
+ ['rewards','Top 3','gift','/redemptions'],
+ ['profile','Profil','user','/profile']
+].map(([k,l,i,p])=>`<button type="button" data-href="${p}" class="${active===k?'active':''} ${k==='report'?'mobile-primary-tab':''}" aria-label="${l}">${k==='report'?'<span class="mobile-plus-tab">'+icon(i)+'</span>':icon(i)}<span>${l}</span></button>`).join('')}</nav><div id="mobileMore" class="mobile-more"><button data-href="/riwayat">${icon('clock','sm')} Hadiah Saya</button><button data-href="/leaderboard">${icon('trophy','sm')} Peringkat</button><button data-href="/profile">${icon('user','sm')} Profil</button></div>`;
  document.querySelectorAll('[data-href]').forEach(b=>b.onclick=()=>location.href=b.dataset.href);
  const out=document.querySelector('#signOut');if(out)out.onclick=async()=>{await hatchable.auth.signOut();location.href='/'};
  const more=document.querySelector('#moreNav'),sheet=document.querySelector('#mobileMore');if(more&&sheet)more.onclick=()=>{sheet.style.display=sheet.style.display==='grid'?'none':'grid';sheet.style.position='fixed';sheet.style.bottom='72px';sheet.style.left='12px';sheet.style.right='12px';sheet.style.background='#fff';sheet.style.padding='10px';sheet.style.border='1px solid var(--border)';sheet.style.borderRadius='16px';sheet.style.boxShadow='var(--shadow-hover)';sheet.style.zIndex='90';sheet.querySelectorAll('button').forEach(x=>{x.style.border='0';x.style.background='transparent';x.style.padding='12px';x.style.textAlign='left';x.style.display='flex';x.style.gap='9px';x.style.alignItems='center'})};
@@ -166,17 +202,24 @@ async function loadDashboard(){
  const user=await authSession();if(!user)return;
  try{
   const d=await api('/api/student/dashboard');
-  const rewards=[...(d.featured_rewards||[])].sort((a,b)=>a.point_cost-b.point_cost);
-  const next=rewards.find(r=>Number(r.point_cost)>Number(d.points))||rewards[0]||null;
-  const remaining=next?Math.max(0,Number(next.point_cost)-Number(d.points)):0;
-  const body=`<section class="simple-dashboard">
+  // Contest points are earned by admin-approved reports; rewards cannot be purchased.
+  const next=null;
+  const remaining=0;
+  const mobileDashboard=`<section class="m-member-home">
+    <header class="m-member-greeting"><div><small>HALO, PEJUANG LINGKUNGAN 👋</small><h1>${esc(d.profile.full_name||'Mahasiswa')}</h1></div><a href="/profile" aria-label="Profil">${icon('user')}</a></header>
+    <div class="m-wallet-card"><div><span>SALDO ECO-POINTS</span><strong>${Number(d.points||0)} <small>pts</small></strong><p>${next?(remaining>0?remaining+' poin lagi menuju hadiah berikutnya':'Kamu sudah bisa menukar poin!'):'Terus kumpulkan poin dari laporan.'}</p></div><a href="/redemptions" class="m-wallet-bubble">${icon('gift')}</a></div>
+    <div class="m-member-actions"><a href="/report"><span class="m-action-symbol action-lime">${icon('plus')}</span><b>Buat Laporan</b></a><a href="/reports"><span class="m-action-symbol action-blue">${icon('file')}</span><b>Status Laporan</b></a><a href="/redemptions"><span class="m-action-symbol action-yellow">${icon('gift')}</span><b>Top 3 Hadiah</b></a></div>
+    <div id="ecoMemberEventMobile"></div><div class="m-dashboard-counts"><div><b>${d.stats.total}</b><span>Total laporan</span></div><div><b>${d.stats.approved}</b><span>Disetujui</span></div><div><b>${d.stats.pending}</b><span>Menunggu</span></div></div>
+    <section class="m-member-recent"><div class="m-section-head"><h2>Aktivitas terbaru</h2><a href="/reports">Lihat semua</a></div><div class="m-report-list">${d.recent_reports.length?d.recent_reports.slice(0,4).map(r=>`<a href="/reports?id=${r.id}"><img src="/api/student/report-photo?id=${encodeURIComponent(r.id)}" loading="lazy" alt="Bukti laporan"><div><b>${esc(r.category)}</b><small>${fmt(r.submitted_at)}</small></div>${statusPill(r.status)}</a>`).join(''):'<div class="m-no-reports">Belum ada laporan. Yuk, mulai aksi hijau pertamamu! <a href="/report">Buat laporan</a></div>'}</div></section>
+   </section>`;
+  const body=mobileDashboard+`<section class="simple-dashboard">
     <div class="simple-dash-head">
       <div><h1>Halo, ${esc(d.profile.full_name)}.</h1><p>Catat aksi pemilahanmu, cek status, lalu kumpulkan poin.</p></div>
       <a class="btn primary" href="/report">${icon('plus','sm')} Buat laporan</a>
     </div>
 
-    <div class="simple-summary">
-      <div class="summary-main immersive-summary" data-tilt data-tilt-strength="3"><span>Eco-Points</span><strong>${d.points}</strong><p>${next?(remaining>0?remaining+' poin lagi menuju '+esc(next.name):'Poinmu cukup untuk '+esc(next.name)):'Kumpulkan poin dari laporan yang disetujui.'}</p><a href="/rewards">Lihat reward →</a></div>
+    <div id="ecoMemberEventDesktop"></div><div class="simple-summary">
+      <div class="summary-main immersive-summary" data-tilt data-tilt-strength="3"><span>Eco-Points</span><strong>${d.points}</strong><p>${next?(remaining>0?remaining+' poin lagi menuju '+esc(next.name):'Poinmu cukup untuk '+esc(next.name)):'Kumpulkan poin dari laporan yang disetujui.'}</p><a href="/rewards">Lihat kompetisi →</a></div>
       <div class="summary-stat"><strong>${d.stats.total}</strong><span>Total laporan</span></div>
       <div class="summary-stat"><strong>${d.stats.approved}</strong><span>Disetujui</span></div>
       <div class="summary-stat"><strong>${d.stats.pending}</strong><span>Menunggu</span></div>
@@ -188,6 +231,10 @@ async function loadDashboard(){
     </section>
   </section>`;
   appShell('dashboard',body,d.profile,{unread:d.unread_notifications});
+  try{
+   const [evt,own]=await Promise.all([api('/api/public/event'),api('/api/student/event')]);
+   for(const id of ['ecoMemberEventMobile','ecoMemberEventDesktop']){const el=document.getElementById(id);if(el)el.innerHTML=window.EcoContest.teaser(evt,own);}
+  }catch(e){}
   initImmersive();
  }catch(e){accessError(e)}
 }
@@ -239,26 +286,12 @@ function spinPhoto(name){
 async function loadRewards(){
  const user=await authSession();if(!user)return;
  try{
-  const [profile,vouchers,wheel]=await Promise.all([
-   api('/api/student/profile'),api('/api/student/vouchers'),api('/api/student/spin-wheel')
+  const [profile,event,own]=await Promise.all([
+   api('/api/student/profile'),api('/api/public/event'),api('/api/student/event')
   ]);
-  const body=`<section class="redemptions-page">
-   <div class="taste-redeem-hero">
-    <div class="taste-redeem-copy">
-     <span class="taste-redeem-label">Eco-Point Rewards Club</span>
-     <h1>Kumpulkan poin.<br><span>Putar hadiah!</span></h1>
-     <p>Laporan sampah disetujui = 5–10 poin. Tukar 150 poin untuk 1 voucher, lalu putar roda dan menangkan hadiah ramah lingkungan.</p>
-     <a href="/riwayat" class="taste-btn taste-btn-lime">Lihat hadiah saya ${icon('arrow','sm')}</a>
-    </div>
-    <div class="taste-redeem-art" aria-hidden="true">
-      <div class="taste-redeem-orbit"></div>
-      <div class="taste-redeem-gift">${icon('gift','lg')}</div>
-    </div>
-   </div>
-   ${window.EcoWheel.view(vouchers,wheel)}
-  </section>`;
+  const body=window.EcoContest.page(event,own);
   appShell('rewards',body,profile.profile);
-  window.EcoWheel.mount();
+  window.EcoContest.startTimer();
  }catch(e){accessError(e)}
 }
 async function loadRedemptions(){
@@ -278,7 +311,7 @@ async function loadRedemptions(){
      <span class="taste-redeem-label">Reward saya</span>
      <h1>Penukaran<br><span>Eco-Points.</span></h1>
      <p>Semua reward yang kamu tukarkan, dari pengajuan sampai selesai diambil.</p>
-     <a href="/redemptions" class="taste-btn taste-btn-lime">Putar Spin Wheel ${icon('arrow','sm')}</a>
+     <a href="/redemptions" class="taste-btn taste-btn-lime">Lihat Event Top 3 ${icon('arrow','sm')}</a>
     </div>
     <div class="taste-redeem-art" aria-hidden="true">
       <div class="taste-redeem-orbit"></div>
@@ -330,10 +363,7 @@ async function loadRedemptions(){
   }));
  }catch(e){accessError(e)}
 }
-async function loadCommunity(){
- const user=await authSession();if(!user)return;
- try{const [p,d]=await Promise.all([api('/api/student/profile'),api('/api/student/community')]);const leaders=d.leaderboard||[],top=leaders.slice(0,3),rest=leaders.slice(3);const order=[top[1],top[0],top[2]].filter(Boolean);const body=`<div class="page-head"><div><div class="eyebrow">Leaderboard</div><h1>Campus impact, ranked.</h1><p>Ranking dihitung dari Eco-Points yang berasal dari transaksi valid.</p></div></div>${leaders.length?`<div class="podium">${order.map((x,i)=>{const actual=leaders.indexOf(x)+1;return `<div class="podium-card ${actual===1?'first':''}"><div class="medal">${actual}</div><div class="podium-avatar">${esc(initials(x.full_name))}</div><h3>${esc(x.full_name)}</h3><b>${x.total_points}</b><div class="meta">Eco-Points</div></div>`}).join('')}</div><div class="ranking-list">${rest.map((x,i)=>`<div class="rank-row ${x.user_id===user.id?'me':''}"><span class="rank-number">#${i+4}</span><span class="rank-avatar">${esc(initials(x.full_name))}</span><div><b>${esc(x.full_name)}${x.user_id===user.id?' · You':''}</b><div class="meta">${x.approved_reports} approved reports</div></div><b>${x.total_points} pts</b></div>`).join('')}</div>`:'<div class="empty">Leaderboard belum memiliki peserta dengan poin valid.</div>'}<section class="panel" style="margin-top:20px"><div class="panel-head"><h2>Notifications</h2></div><div class="recent-list">${d.notifications.length?d.notifications.slice(0,8).map(n=>`<div class="report-row"><span class="stat-icon">${icon('bell','sm')}</span><div><b>${esc(n.title)}</b><div class="meta">${esc(n.body)} · ${fmt(n.created_at)}</div></div>${n.is_read?'':'<span class="pill approved">New</span>'}</div>`).join(''):'<div class="empty">Belum ada notifikasi.</div>'}</div></section>`;appShell('community',body,p.profile)}catch(e){accessError(e)}
-}
+async function loadCommunity(){return loadRewards();}
 async function loadProfile(){
  const user=await authSession();if(!user)return;
  try{const [p,d]=await Promise.all([api('/api/student/profile'),api('/api/student/dashboard')]);const body=`<div class="page-head"><div><div class="eyebrow">Profile</div><h1>Your Eco-Point identity.</h1><p>Informasi akun institusi dan ringkasan aktivitas.</p></div></div><section class="profile-hero"><span class="profile-avatar">${esc(initials(p.profile.full_name))}</span><div><h2>${esc(p.profile.full_name)}</h2><p>${esc(p.profile.email)} · Member since ${dateOnly(p.profile.created_at)}</p></div><a href="/report" class="btn primary">Report Waste</a></section><div class="stat-row"><div class="stat-card"><span class="stat-icon">${icon('gift')}</span><div><b>${d.points}</b><span>Total Eco-Points</span></div></div><div class="stat-card"><span class="stat-icon">${icon('file')}</span><div><b>${d.stats.total}</b><span>Total Reports</span></div></div><div class="stat-card"><span class="stat-icon">${icon('check')}</span><div><b>${d.stats.approved}</b><span>Approved</span></div></div></div><div class="profile-grid"><form id="profileForm" class="form-card"><div class="panel-head"><h2>Account details</h2></div><div class="field"><label>Full Name</label><input name="full_name" value="${esc(p.profile.full_name)}" required></div><div class="field"><label>Institutional Email</label><input value="${esc(p.profile.email)}" disabled></div><div class="field"><label>Student ID</label><input name="student_id" value="${esc(p.profile.student_id||'')}" placeholder="Optional"></div><button class="btn primary">Save Changes</button></form><section class="panel"><div class="panel-head"><h2>Recent activity</h2></div><div class="recent-list">${d.recent_reports.length?d.recent_reports.map(r=>`<a class="report-row" href="/reports?id=${r.id}"><img class="report-thumb" src="/api/student/report-photo?id=${r.id}" alt=""><div><b>${esc(r.category)}</b><div class="meta">${fmt(r.submitted_at)}</div></div>${statusPill(r.status)}</a>`).join(''):'<div class="empty">Belum ada aktivitas.</div>'}</div></section></div>`;appShell('profile',body,p.profile,{unread:d.unread_notifications});document.querySelector('#profileForm').onsubmit=async e=>{e.preventDefault();const fd=new FormData(e.currentTarget);try{await api('/api/student/profile',{method:'PUT',body:JSON.stringify(Object.fromEntries(fd.entries()))});toast('Profile updated.')}catch(err){toast(err.message)}}}catch(e){accessError(e)}

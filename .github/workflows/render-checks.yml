@@ -1,8 +1,8 @@
-name: Render migration checks
+name: ECO-POINT integration checks
 
 on:
   push:
-    branches: ["migration/render-postgres"]
+    branches: ["migration/render-postgres", "migration/vercel-neon"]
   pull_request:
     paths:
       - "render-server/**"
@@ -53,6 +53,14 @@ jobs:
           node --check eco-point-code-20261118-0044/public/app.js
           node --check eco-point-code-20261118-0044/public/admin/admin.js
           node --check eco-point-code-20261118-0044/public/auth-bridge.js
+          node --input-type=module <<'EOF'
+          import { readFileSync } from 'node:fs';
+          import { Script } from 'node:vm';
+          const html=readFileSync('eco-point-code-20261118-0044/public/login.html','utf8');
+          const scripts=[...html.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/g)].map(x=>x[1]).filter(Boolean);
+          for(const script of scripts) new Script(script,{filename:'login.html'});
+          console.log('Login inline scripts valid');
+          EOF
       - name: Verify all server imports resolve
         run: |
           node --input-type=module <<'EOF'

@@ -19,6 +19,7 @@ export default async function(req,res){
  if(prior)return res.json({redemption:prior,idempotent:true});
  const reward=(await db.query("SELECT * FROM rewards WHERE id=$1 AND is_active=true",[rewardId])).rows[0];
  if(!reward)return res.status(404).json({error:"Reward tidak tersedia."});
+ if(reward.category==="contest")return res.status(409).json({error:"Hadiah Top 3 tidak dapat ditukar langsung; pemenang ditentukan berdasarkan poin terverifikasi saat periode berakhir."});
  if(reward.category==="spin_wheel")return res.status(409).json({error:"Hadiah ini hanya bisa didapat melalui voucher dan Spin Wheel."});
  if(Number(reward.stock)<=0)return res.status(409).json({error:"Stok habis."});
  const balance=(await db.query("SELECT COALESCE(SUM(points),0)::int AS balance FROM point_transactions WHERE user_id=$1",[uid])).rows[0];
