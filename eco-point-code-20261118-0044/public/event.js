@@ -14,9 +14,9 @@
  function prizes(data,where='normal'){
   const items=data?.prizes||products;
   return '<div class="eco-contest-prizes '+(where==='rail'?'is-rail':'')+'">'+items.map((p,i)=>
-   '<article class="eco-contest-prize prize-'+(i+1)+'"><div class="eco-contest-medal">'+['🥇','🥈','🥉'][i]+' '+safe(p.label||'JUARA '+(i+1))+'</div>'+
+   '<article class="eco-contest-prize prize-'+(i+1)+'"><div class="eco-contest-medal">'+safe(p.label||'JUARA '+(i+1))+'</div>'+
    '<div class="eco-contest-product">'+img(p.place||i+1,p.name)+'</div>'+
-   '<div class="eco-contest-product-caption"><strong>'+safe(p.name)+'</strong><span>Hadiah untuk peringkat '+(i+1)+'</span></div></article>'
+   '<div class="eco-contest-product-caption"><strong>'+safe(p.name)+'</strong></div></article>'
   ).join('')+'</div>';
  }
  function remaining(date){
