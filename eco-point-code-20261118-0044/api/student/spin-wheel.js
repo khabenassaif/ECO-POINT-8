@@ -28,6 +28,7 @@ export default async function(req,res){
   ]);
   return res.json({rewards,available_vouchers:v.rows.filter(x=>x.status==="available").length,vouchers:v.rows,history:history.rows});
  }
+ return res.status(410).json({error:"Spin Wheel sudah diganti dengan kompetisi Top 3 Eco-Point. Riwayat hadiah lama tetap tersimpan."});
  const voucher=String(req.body?.voucher_id||"").trim().slice(0,80);
  if(!/^[0-9a-f-]{36}$/i.test(voucher)) return res.status(400).json({error:"Voucher tidak valid."});
  const existing=await alreadySpun(uid,voucher);
