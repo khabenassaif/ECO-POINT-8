@@ -4,11 +4,12 @@
  const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  const tz=d=>new Intl.DateTimeFormat('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit',timeZone:'Asia/Jakarta',hour12:false}).format(new Date(d))+' WIB';
  const phaseText={upcoming:'SEGERA DIMULAI',active:'KOMPETISI BERLANGSUNG',closed:'PENILAIAN DITUTUP',announced:'PEMENANG DIUMUMKAN'};
- const products=[{place:1,name:'Mouse JETE MO106',image:'/images/eco-prizes.webp',label:'JUARA 1'},
- {place:2,name:'Earphone JETE Eazy 3',image:'/images/eco-prizes.webp',label:'JUARA 2'},
- {place:3,name:'Mousepad JETE',image:'/images/eco-prizes.webp',label:'JUARA 3'}];
- function img(place,name){
-  return '<div role="img" aria-label="'+safe(name)+'" class="eco-jete-image eco-jete-'+place+'" style="background-position:'+((place-1)*50)+'% center"></div>';
+ const products=[{place:1,name:'Mouse JETE MO106',image:'/images/jete-mouse.webp',label:'JUARA 1'},
+ {place:2,name:'Earphone JETE Eazy 3',image:'/images/jete-earphone.webp',label:'JUARA 2'},
+ {place:3,name:'Mousepad JETE',image:'/images/jete-mousepad.webp',label:'JUARA 3'}];
+ function img(place,name,eager=false){
+  const src=products.find(p=>p.place===place)?.image||products[0].image;
+  return '<img src="'+safe(src)+'" alt="'+safe(name)+'" class="eco-jete-image eco-jete-'+place+'" width="640" height="640" loading="'+(eager?'eager':'lazy')+'" decoding="async">';
  }
  function prizes(data,where='normal'){
   const items=data?.prizes||products;
@@ -41,7 +42,7 @@
  }
  function landing(e){
   const desktop=document.querySelector('#ecoContestDesktop');
-  if(desktop)desktop.innerHTML='<section class="eco-event-banner"><div class="eco-event-banner-copy"><span class="eco-live-tag">🏆 '+safe(phaseText[e.phase]||'TOP 3 CHALLENGE')+'</span><h2>TOP 3 POINT<br><em>CHALLENGE!</em> 🎉</h2><p>Tiga peserta dengan poin laporan terbanyak berhak mendapatkan hadiah JETE. Semakin aktif pilah sampah, semakin besar peluangmu!</p><a href="/login" class="eco-banner-cta">Mulai kumpulkan poin →</a></div><div class="eco-event-banner-media">'+img(1,products[0].name)+'</div></section>'+dateBox(e)+prizes(e);
+  if(desktop)desktop.innerHTML='<section class="eco-event-banner"><div class="eco-event-banner-copy"><span class="eco-live-tag">🏆 '+safe(phaseText[e.phase]||'TOP 3 CHALLENGE')+'</span><h2>TOP 3 POINT<br><em>CHALLENGE!</em> 🎉</h2><p>Tiga peserta dengan poin laporan terbanyak berhak mendapatkan hadiah JETE. Semakin aktif pilah sampah, semakin besar peluangmu!</p><a href="/login" class="eco-banner-cta">Mulai kumpulkan poin →</a></div><div class="eco-event-banner-media">'+img(1,products[0].name,true)+'</div></section>'+dateBox(e)+prizes(e);
   const mobile=document.querySelector('#ecoContestMobile');
   if(mobile)mobile.innerHTML='<div class="eco-mobile-contest-badge">🔥 '+safe(phaseText[e.phase]||'Top 3')+'</div>'+dateBox(e);
   const rail=document.querySelector('#mobileLandingRewards');
@@ -60,7 +61,8 @@
    '<section class="eco-contest-rule"><strong>📌 Cara menentukan pemenang</strong><p>Peringkat dihitung dari poin laporan yang <b>disetujui admin selama periode kompetisi</b>. Poin yang dibelanjakan sebelum kompetisi tidak mengurangi skor. Jika seri: jumlah laporan disetujui, lalu waktu pencapaian poin. Hasil akhir dibuka pada tanggal pengumuman.</p><a href="/report">Laporkan sampah sekarang →</a></section></section>';
  }
  function teaser(e,own){
-  return '<div class="eco-member-teaser"><span>🏆 TOP 3 CHALLENGE</span><div><strong>'+(own?.rank?'Posisimu #'+own.rank:'Kumpulkan poin dan naik peringkat!')+'</strong><small>'+fmt(own?.earned_points||0)+' poin kompetisi · Pengumuman '+safe(tz(e.announcement_at))+'</small></div><a href="/redemptions">Lihat peringkat →</a></div>';
+  const thumbs='<div class="eco-teaser-thumbnails" aria-label="Foto tiga hadiah JETE">'+products.map(p=>img(p.place,p.name)).join('')+'</div>';
+  return '<div class="eco-member-teaser"><span>🏆 TOP 3 CHALLENGE</span>'+thumbs+'<div><strong>'+(own?.rank?'Posisimu #'+own.rank:'Kumpulkan poin dan naik peringkat!')+'</strong><small>'+fmt(own?.earned_points||0)+' poin kompetisi · Pengumuman '+safe(tz(e.announcement_at))+'</small></div><a href="/redemptions">Lihat peringkat →</a></div>';
  }
  function tick(){
   for(const el of document.querySelectorAll('[data-eco-countdown]')){

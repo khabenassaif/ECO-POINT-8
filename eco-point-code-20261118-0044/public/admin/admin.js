@@ -272,6 +272,10 @@ const ADMIN_PRIZE_IMAGES=[
 function adminRewardPhoto(reward,large=false){
  const index=ADMIN_PRIZE_IMAGES.indexOf(reward.name);
  const cls='reward-table-image admin-reward-photo'+(large?' admin-reward-photo-large':'');
+ const contestPhotos={'Mouse JETE MO106':'/images/jete-mouse.webp','Earphone JETE Eazy 3':'/images/jete-earphone.webp','Mousepad JETE':'/images/jete-mousepad.webp'};
+ if(reward.category==='contest' && contestPhotos[reward.name]){
+  return `<img class="${cls}" loading="lazy" src="${contestPhotos[reward.name]}" alt="${esc(reward.name)}">`;
+ }
  if(reward.image_key){
   return `<img class="${cls}" loading="lazy" src="/api/admin/reward-image?id=${encodeURIComponent(reward.id)}" alt="${esc(reward.name)}">`;
  }

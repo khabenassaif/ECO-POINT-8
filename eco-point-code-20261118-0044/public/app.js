@@ -79,7 +79,7 @@ function mobilePublicHome(){
    <main class="m-feed">
     <section id="m-home" class="m-hero">
       <div class="m-hero-copy"><div class="m-eyebrow">🌱 GERAKAN KAMPUS HIJAU</div><h1>Kumpulkan poin,<br><em>jadilah Top 3!</em></h1><p>Laporkan aksi pilah sampahmu, bersaing menjadi Top 3 dan menangkan hadiah JETE.</p><a class="m-hero-cta" href="/login">Mulai kumpulkan poin ${icon('arrow','sm')}</a></div>
-      <div class="m-hero-art" aria-hidden="true"><div class="eco-jete-image eco-jete-1"></div></div>
+      <div class="m-hero-art"><img class="eco-jete-image eco-jete-1" src="/images/jete-mouse.webp" alt="Hadiah Juara 1: Mouse JETE MO106" width="640" height="640" loading="eager" decoding="async"></div>
     </section>
     <section id="ecoContestMobile" class="eco-contest-mobile-preview"></section><section class="m-shortcuts" aria-label="Aksi cepat">
       <a href="/login?next=%2Freport"><span class="m-short-icon mint">${icon('upload')}</span><b>Lapor</b></a>

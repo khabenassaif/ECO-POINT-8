@@ -9,6 +9,10 @@ const local=s=>{
   return o.year+'-'+o.month+'-'+o.day+'T'+o.hour+':'+o.minute;
 };
 const parseJakarta=value=>new Date(value+':00+07:00').toISOString();
+const prizeAssets={1:'/images/jete-mouse.webp',2:'/images/jete-earphone.webp',3:'/images/jete-mousepad.webp'};
+function prizePhoto(i,name,compact=false){
+ return '<img src="'+prizeAssets[i]+'" class="eco-jete-image eco-jete-'+i+(compact?' eco-admin-prize-thumb':'')+'" alt="'+esc(name)+'" loading="lazy" decoding="async" width="640" height="640">';
+}
 async function get(){
  const r=await fetch('/api/admin/event',{credentials:'same-origin',cache:'no-store'});
  const d=await r.json();
@@ -51,7 +55,7 @@ async function rewards(){
   const d=await get();
   const p=[['Mouse JETE MO106',1],['Earphone JETE Eazy 3',2],['Mousepad JETE',3]];
   host.innerHTML='<h2>🏆 Tiga hadiah utama</h2><p>Pemenang ditentukan berdasarkan poin yang diverifikasi selama periode. Hadiah tidak bisa ditukar langsung.</p>'+
-   '<div class="eco-admin-prize-gallery">'+p.map(([n,i])=>'<div><span>JUARA '+i+'</span><div class="eco-jete-image eco-jete-'+i+'"></div><b>'+n+'</b></div>').join('')+'</div>'+
+   '<div class="eco-admin-prize-gallery">'+p.map(([n,i])=>'<div><span>JUARA '+i+'</span>'+prizePhoto(i,n)+'<b>'+esc(n)+'</b></div>').join('')+'</div>'+
    '<p><strong>Pengumuman:</strong> '+nice(d.config.announcement_at)+'</p>'+
    '<a href="/admin/?tab=settings" class="btn ghost">Ubah tenggat & jadwal →</a>'+
    '<h3>Peringkat saat ini</h3>'+list(d.leaderboard);
@@ -61,7 +65,7 @@ async function overview(){
  const host=document.getElementById('ecoAdminContestOverview');if(!host)return;
  try{
   const d=await get();
-  host.innerHTML='<div class="eco-admin-event-overview"><strong>🏆 Top 3 Challenge</strong><span>Tenggat: '+nice(d.config.ends_at)+'</span><span>Pengumuman: '+nice(d.config.announcement_at)+'</span><a href="/admin/?tab=settings">Atur tanggal →</a></div>'+list(d.leaderboard.slice(0,3));
+  host.innerHTML='<div class="eco-admin-event-overview"><strong>🏆 Top 3 Challenge</strong><span>Tenggat: '+nice(d.config.ends_at)+'</span><span>Pengumuman: '+nice(d.config.announcement_at)+'</span><a href="/admin/?tab=settings">Atur tanggal →</a></div>'+'<div class="eco-admin-overview-photos" aria-label="Hadiah Top 3">'+[['Mouse JETE MO106',1],['Earphone JETE Eazy 3',2],['Mousepad JETE',3]].map(([name,i])=>prizePhoto(i,name,true)).join('')+'</div>'+list(d.leaderboard.slice(0,3));
  }catch(e){host.textContent='Tidak dapat memuat peringkat kompetisi.'}
 }
 window.EcoAdminContest={settings,rewards,overview};
