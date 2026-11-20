@@ -90,7 +90,7 @@ function mobilePublicHome(){
     <div class="m-points-strip"><div><strong>+5–10</strong><span>poin per laporan disetujui</span></div><span class="m-strip-divider"></span><div><strong>TOP 3</strong><span>poin terbanyak menang</span></div></div>
     <section class="m-section" id="m-rewards">
       <div class="m-section-head"><div><span class="m-section-label">MERCHANDISE</span><h2>Rebut 3 hadiah JETE! 🎁</h2></div><a href="/login?next=%2Fredemptions">Lihat semua</a></div>
-      <p class="m-section-sub">Hadiah peringkat 1, 2, dan 3. Geser untuk lihat semuanya.</p>
+      <p class="m-section-sub">Hadiah untuk JUARA 1, JUARA 2, dan JUARA 3.</p>
       <div id="mobileLandingRewards" class="m-reward-rail"><div class="m-loading">Memuat hadiah…</div></div>
     </section>
     <section class="m-section" id="m-steps">

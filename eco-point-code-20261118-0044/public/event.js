@@ -46,7 +46,7 @@
   const mobile=document.querySelector('#ecoContestMobile');
   if(mobile)mobile.innerHTML='<div class="eco-mobile-contest-badge">🔥 '+safe(phaseText[e.phase]||'Top 3')+'</div>'+dateBox(e);
   const rail=document.querySelector('#mobileLandingRewards');
-  if(rail)rail.innerHTML=prizes(e,'rail');
+  if(rail)rail.innerHTML=prizes(e);
   const gallery=document.querySelector('#landingRewards');
   if(gallery)gallery.innerHTML=prizes(e);
   tick();

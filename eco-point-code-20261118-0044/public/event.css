@@ -168,3 +168,121 @@
 .eco-admin-prize-gallery>div>span{font-size:14px;margin-bottom:12px}
 .eco-admin-prize-gallery b{font-size:16px;margin-top:12px}
 }
+
+
+/* Large, edge-to-edge prize gallery. The parent .taste-reward-grid previously
+   split this ONE nested gallery into a quarter-width CSS-grid track. */
+#landingRewards.taste-reward-grid{
+  display:block!important;
+  position:relative;
+  left:50%;
+  width:calc(100vw - 24px);
+  max-width:none;
+  transform:translateX(-50%);
+}
+#landingRewards>.eco-contest-prizes{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  width:100%;
+  max-width:none;
+  gap:18px;
+  margin:0;
+}
+#landingRewards .eco-contest-prize,
+#ecoContestDesktop .eco-contest-prize{
+  min-width:0;
+}
+#landingRewards .eco-contest-product,
+#ecoContestDesktop .eco-contest-product,
+.eco-contest-page .eco-contest-product{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:1/1;
+  padding:0;
+  overflow:hidden;
+}
+#landingRewards .eco-contest-product>.eco-jete-image,
+#ecoContestDesktop .eco-contest-product>.eco-jete-image,
+.eco-contest-page .eco-contest-product>.eco-jete-image{
+  display:block;
+  width:100%;
+  height:100%;
+  max-width:none;
+  min-width:0;
+  object-fit:cover;
+}
+.eco-contest-page{
+  max-width:none;
+  width:100%;
+}
+.eco-admin-prize-gallery>div>.eco-jete-image{
+  width:100%;
+  max-width:none;
+  height:auto;
+  aspect-ratio:1/1;
+  object-fit:cover;
+}
+@media (max-width:720px){
+  #mobileLandingRewards.m-reward-rail{
+    display:block!important;
+    width:100%;
+    max-width:none;
+    overflow:visible!important;
+    padding:0;
+  }
+  #mobileLandingRewards>.eco-contest-prizes{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    width:100%;
+    max-width:none;
+    gap:14px;
+    margin:0;
+    padding:0;
+  }
+  #mobileLandingRewards .eco-contest-prize{
+    display:flex;
+    width:100%;
+    max-width:none;
+    min-width:0;
+    flex:initial;
+  }
+  #mobileLandingRewards .eco-contest-product{
+    width:100%;
+    aspect-ratio:1/1;
+    height:auto;
+    padding:0;
+  }
+  #mobileLandingRewards .eco-contest-product .eco-jete-image{
+    display:block;
+    width:100%;
+    height:100%;
+    max-width:none;
+    object-fit:cover;
+  }
+  #landingRewards.taste-reward-grid{
+    position:static;
+    left:auto;
+    width:100%;
+    transform:none;
+  }
+  #landingRewards>.eco-contest-prizes{
+    grid-template-columns:minmax(0,1fr);
+    gap:14px;
+  }
+}
+@media (min-width:721px) and (max-width:1000px){
+  #landingRewards>.eco-contest-prizes{
+    gap:12px;
+  }
+  #landingRewards .eco-contest-prize{
+    padding:12px;
+  }
+  #landingRewards .eco-contest-medal{
+    font-size:13px;
+    margin-bottom:10px;
+  }
+  #landingRewards .eco-contest-product-caption strong{
+    font-size:14px;
+  }
+}
